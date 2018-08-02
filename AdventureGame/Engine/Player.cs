@@ -15,6 +15,8 @@ namespace Engine
         int Xp { get; set; }
         int Gold { get; set; }
         List<Item> Inventory { get; set; }
+        List<ItemArmour> Armour { get; set; }
+        List<ItemWeapon> Weapons { get; set; }
 
         public Player(string name, int hpMax, int hpCur, int mpMax, int mpCur, int lv, int xp, int gp) : base(hpMax, hpCur)
         {

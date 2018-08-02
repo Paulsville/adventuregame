@@ -12,6 +12,7 @@ namespace Engine
         string Name { get; set; }
         int SizeX { get; set; }
         int SizeY { get; set; }
+        List
 
         public Room(int id, string name, int sizeX, int sizeY)
         {
