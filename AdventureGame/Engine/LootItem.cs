@@ -8,12 +8,12 @@ namespace Engine
 {
     public class LootItem
     {
-        Item Item { get; set; }
+        IItem Item { get; set; }
         int Chance { get; set; }
         int QtyMin { get; set; }
         int QtyMax { get; set; }
 
-        public LootItem(Item item, int chance, int qtyMin, int qtyMax)
+        public LootItem(IItem item, int chance, int qtyMin, int qtyMax)
         {
             Item = item;
             Chance = chance;

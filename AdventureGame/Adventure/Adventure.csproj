@@ -51,10 +51,19 @@
     <Compile Include="AdventureGame.Designer.cs">
       <DependentUpon>AdventureGame.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdventureMainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdventureMainMenu.Designer.cs">
+      <DependentUpon>AdventureMainMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AdventureGame.resx">
       <DependentUpon>AdventureGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdventureMainMenu.resx">
+      <DependentUpon>AdventureMainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

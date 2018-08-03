@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class ItemConsumable : Item
+    public class ItemConsumable : IItem
     {
         int HpRestore { get; set; }
         int MpRestore { get; set; }

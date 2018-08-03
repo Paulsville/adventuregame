@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Engine;
 
 namespace Adventure
 {
@@ -16,11 +15,9 @@ namespace Adventure
         public AdventureGame()
         {
             InitializeComponent();
-        }
-
-        private void ButtonStart_Click(object sender, EventArgs e)
-        {
-            Player player = new Player("Player", 10, 10, 5, 5, 1, 0, 0);
+            AdventureMainMenu MainMenu = new AdventureMainMenu();
+            MainMenu.ShowDialog();
+            MainMenu.Close();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Adventure
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AdventureGame());
+            Application.Run(new AdventureMainMenu());
         }
     }
 }

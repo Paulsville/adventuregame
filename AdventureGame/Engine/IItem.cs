@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class TileType
+    public class IItem
     {
         int ID { get; set; }
-        string Name { get; set; }
-        bool CanWalk { get; set; }
-        
-        public TileType(int id, string name, bool canWalk)
+        string ItmName { get; set; }
+        string ItmDesc { get; set; }
+
+        public IItem(int id, String name, String desc)
         {
             ID = id;
-            Name = name;
-            CanWalk = canWalk;
+            ItmName = name;
+            ItmDesc = desc;
         }
     }
 }
