@@ -18,5 +18,18 @@ namespace Engine
             ItmName = name;
             ItmDesc = desc;
         }
+
+        public static IItem ItemID(int id)
+        {
+            foreach (IItem item in ListItems.ItemList)
+            {
+                if (item.ID == id)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
     }
 }

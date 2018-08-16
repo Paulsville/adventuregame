@@ -8,8 +8,8 @@ namespace Engine
 {
     public class ICreature
     {
-        int HpMax { get; set; }
-        int HpCur { get; set; }
+        public int HpMax { get; set; }
+        public int HpCur { get; set; }
 
         public ICreature(int hpMax, int hpCur)
         {

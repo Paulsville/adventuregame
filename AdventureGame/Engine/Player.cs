@@ -8,27 +8,25 @@ namespace Engine
 {
     public class Player : ICreature
     {
-        int MpMax { get; set; }
-        int MpCur { get; set; }
-        int Level { get; set; }
-        int Xp { get; set; }
-        int Gold { get; set; }
+        public int Level { get; set; }
+        public int Xp { get; set; }
+        public int Gold { get; set; }
 
         public List<IItem> Inventory { get; set; }
         public List<IItem> QuestLog { get; set; }
 
-        public ItemArmour HeadSlot { get; set; }
-        public ItemArmour ChestSlot { get; set; }
-        public ItemArmour LegSlot { get; set; }
-        public ItemArmour FootSlot { get; set; }
-        public ItemArmour HandSlot { get; set; }
+        public IArmour HeadSlot { get; set; }
+        public IArmour ChestSlot { get; set; }
+        public IArmour LegSlot { get; set; }
+        public IArmour FootSlot { get; set; }
+        public IArmour HandSlot { get; set; }
 
-        public ItemWeapon Weapon { get; set; }
+        public IWeapon Weapon { get; set; }
 
-        public Player(int hpMax, int hpCur, int mpMax, int mpCur, int lv, int xp, int gp) : base(hpMax, hpCur)
+        public ILocation PlayerLocation { get; set; }
+
+        public Player(int hpMax, int hpCur, int lv, int xp, int gp) : base(hpMax, hpCur)
         {
-            MpMax = mpMax;
-            MpCur = mpCur;
             Level = lv;
             Xp = xp;
             Gold = gp;

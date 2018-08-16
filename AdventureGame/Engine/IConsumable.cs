@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class ItemConsumable : IItem
+    public class IConsumable : IItem
     {
         int HpRestore { get; set; }
         int MpRestore { get; set; }
 
-        public ItemConsumable(int id, string name, string desc, int hpRestore, int mpRestore) : base(id, name, desc)
+        public IConsumable(int id, string name, string desc, int hpRestore, int mpRestore) : base(id, name, desc)
         {
             HpRestore = hpRestore;
             MpRestore = mpRestore;

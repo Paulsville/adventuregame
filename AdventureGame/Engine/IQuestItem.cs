@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class ItemQuestCompletion : IItem
+    public class IQuestItem
     {
+        IItem Item { get; set; }
         IQuest Quest { get; set; }
         int ReqdQty { get; set; }
 
-        public ItemQuestCompletion(int id, string name, string desc, IQuest quest, int reqdQty) : base(id, name, desc)
+        public IQuestItem(IItem item, int reqdQty)
         {
-            Quest = quest;
+            Item = item;
             ReqdQty = reqdQty;
         }
     }

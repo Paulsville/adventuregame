@@ -40,21 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ItemQuestCompletion.cs" />
+    <Compile Include="ListItems.cs" />
+    <Compile Include="IQuestItem.cs" />
     <Compile Include="ICreature.cs" />
     <Compile Include="ILocation.cs" />
     <Compile Include="InventoryItem.cs" />
     <Compile Include="IItem.cs" />
-    <Compile Include="ItemConsumable.cs" />
-    <Compile Include="ItemArmour.cs" />
-    <Compile Include="ItemWeapon.cs" />
+    <Compile Include="IConsumable.cs" />
+    <Compile Include="IArmour.cs" />
+    <Compile Include="IWeapon.cs" />
+    <Compile Include="ListLocations.cs" />
+    <Compile Include="ListMonsters.cs" />
+    <Compile Include="ListNpcs.cs" />
+    <Compile Include="ListQuests.cs" />
     <Compile Include="LootItem.cs" />
-    <Compile Include="Monster.cs" />
-    <Compile Include="Npc.cs" />
+    <Compile Include="IMonster.cs" />
+    <Compile Include="INpc.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IQuest.cs" />
     <Compile Include="Quest.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

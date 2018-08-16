@@ -7,7 +7,7 @@ using Engine;
 
 namespace AdventureMain
 {
-    static class Program
+    static class Adventure
     {
         /// <summary>
         /// The main entry point for the application.
@@ -19,7 +19,7 @@ namespace AdventureMain
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new AdventureMain());
 
-            Player player = new Player(10, 10, 5, 5, 1, 0, 20);
+           
         }
     }
 }

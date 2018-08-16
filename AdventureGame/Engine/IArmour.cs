@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class ItemArmour : IItem
+    public class IArmour : IItem
     {
         int BonusHp { get; set; }
-        int BonusMp { get; set; }
 
-        public ItemArmour(int id, string name, string desc, int bonusHP, int bonusMP) : base(id, name, desc)
+        public IArmour(int id, string name, string desc, int bonusHP) : base(id, name, desc)
         {
             BonusHp = bonusHP;
-            BonusMp = bonusMP;
         }
 
-        public static void EquipArmour(int slotID, ItemArmour itemToEquip, Player player)
+        public static void EquipArmour(int slotID, IArmour itemToEquip, Player player)
         {
             player.Inventory.Remove(itemToEquip);
 
