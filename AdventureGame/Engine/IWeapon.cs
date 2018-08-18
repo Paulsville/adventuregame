@@ -8,8 +8,8 @@ namespace Engine
 {
     public class IWeapon : IArmour
     {
-        int MinDmg { get; set; }
-        int MaxDmg { get; set; }
+        public int MinDmg { get; set; }
+        public int MaxDmg { get; set; }
 
         public IWeapon(int id, string name, string desc, int bonusHP, int minDmg, int maxDmg) 
             : base(id, name, desc, bonusHP)

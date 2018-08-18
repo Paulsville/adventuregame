@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Engine;
 
@@ -22,26 +15,14 @@ namespace AdventureMain
             World.WorldBuilder();
 
             _player.PlayerLocation = ILocation.LocationID(0);
+
+            _player.Weapon = (IWeapon)IItem.ItemID(0);
             
             lblHp.Text = _player.HpCur.ToString();
             lblLv.Text = _player.Level.ToString();
             lblXp.Text = _player.Xp.ToString();
             lblGp.Text = _player.Gold.ToString();
-            lblPlayerLocation.Text = _player.PlayerLocation.Name;
-            if(_player.PlayerLocation.MonsterHere != null)
-            {
-                lblMonsterHere.Text = _player.PlayerLocation.MonsterHere.Name;
-            }
-            else
-            {
-                lblMonsterHere.Text = "No monsters here!";
-            }
-
-        }
-
-        private void AdventureMain_Load(object sender, EventArgs e)
-        {
-
+            infoBox.Text = Utils.LocInfoWriter(_player);
         }
 
         private void BtnMoveNorth_Click(object sender, EventArgs e)
@@ -50,14 +31,7 @@ namespace AdventureMain
             {
                 _player.PlayerLocation = _player.PlayerLocation.LocToNorth;
                 lblPlayerLocation.Text = _player.PlayerLocation.Name;
-                if (_player.PlayerLocation.MonsterHere != null)
-                {
-                    lblMonsterHere.Text = _player.PlayerLocation.MonsterHere.Name;
-                }
-                else
-                {
-                    lblMonsterHere.Text = "No monsters here!";
-                }
+                infoBox.Text = Utils.LocInfoWriter(_player);
             }
         }
 
@@ -67,14 +41,7 @@ namespace AdventureMain
             {
                 _player.PlayerLocation = _player.PlayerLocation.LocToEast;
                 lblPlayerLocation.Text = _player.PlayerLocation.Name;
-                if (_player.PlayerLocation.MonsterHere != null)
-                {
-                    lblMonsterHere.Text = _player.PlayerLocation.MonsterHere.Name;
-                }
-                else
-                {
-                    lblMonsterHere.Text = "No monsters here!";
-                }
+                infoBox.Text = Utils.LocInfoWriter(_player);
             }
         }
 
@@ -84,14 +51,7 @@ namespace AdventureMain
             {
                 _player.PlayerLocation = _player.PlayerLocation.LocToSouth;
                 lblPlayerLocation.Text = _player.PlayerLocation.Name;
-                if (_player.PlayerLocation.MonsterHere != null)
-                {
-                    lblMonsterHere.Text = _player.PlayerLocation.MonsterHere.Name;
-                }
-                else
-                {
-                    lblMonsterHere.Text = "No monsters here!";
-                }
+                infoBox.Text = Utils.LocInfoWriter(_player);
             }
         }
 
@@ -101,14 +61,75 @@ namespace AdventureMain
             {
                 _player.PlayerLocation = _player.PlayerLocation.LocToWest;
                 lblPlayerLocation.Text = _player.PlayerLocation.Name;
-                if (_player.PlayerLocation.MonsterHere != null)
+                infoBox.Text = Utils.LocInfoWriter(_player);
+            }
+        }
+
+        private void BtnInteract_Click(object sender, EventArgs e)
+        {
+            if (_player.PlayerLocation.MonsterHere != null)
+            {
+                string playerDmgMess;
+                string monsterDmgMess;
+                IMonster attacker = _player.PlayerLocation.MonsterHere;
+                if (attacker.HpCur > 0)
                 {
-                    lblMonsterHere.Text = _player.PlayerLocation.MonsterHere.Name;
+                    int dmg;
+                    try
+                    {
+                        dmg = Utils.NumberBetween(_player.Weapon.MinDmg, _player.Weapon.MaxDmg);
+                        attacker.HpCur -= dmg;
+                    }
+                    catch
+                    {
+                        dmg = Utils.NumberBetween(0, 1);
+                        attacker.HpCur -= dmg;
+                    }
+                    playerDmgMess = "You hit " + attacker.Name + " for " + dmg + " damage.";
+
+
+                    if(attacker.HpCur <= 0)
+                    {
+                        monsterDmgMess = "The " + attacker.Name + " dies.";
+                        attacker.HpCur = 0;
+                        _player.Xp += attacker.XpReward;
+                        lblXp.Text = _player.Xp.ToString();
+
+                        #region loot
+
+                        foreach(LootItem item in attacker.LootTable)
+                        {
+                            int lootRoll = Utils.NumberBetween(0, 100);
+                            if(lootRoll <= item.Chance)
+                            {
+                                int itemQty = Utils.NumberBetween(item.QtyMin, item.QtyMax);
+                                for(int i = 0; i < itemQty; i++)
+                                {
+                                    _player.Inventory.Add(item.Item);
+                                }
+                                string lootMess = "You receive item: " + item.Item.ItmName + " x" + itemQty;
+                            }
+                        }
+
+                        #endregion
+                    }
+                    else
+                    {
+                        int monsterDmg = Utils.NumberBetween(attacker.DmgMin, attacker.DmgMax);
+                        _player.HpCur = _player.HpCur - monsterDmg;
+
+                        lblHp.Text = _player.HpCur.ToString();
+
+                        if(_player.HpCur <= 0)
+                        {
+                            //ur ded lol
+                        }
+
+                        lblHp.Text = _player.HpCur.ToString();
+                    }
                 }
-                else
-                {
-                    lblMonsterHere.Text = "No monsters here!";
-                }
+                
+
             }
         }
     }

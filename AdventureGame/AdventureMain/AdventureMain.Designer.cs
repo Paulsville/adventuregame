@@ -42,12 +42,18 @@
             this.BtnMoveWest = new System.Windows.Forms.Button();
             this.lblPlayerLocation = new System.Windows.Forms.Label();
             this.lblMonsterHere = new System.Windows.Forms.Label();
+            this.BtnInteract = new System.Windows.Forms.Button();
+            this.lblMonsterHp = new System.Windows.Forms.Label();
+            this.lblMonsterDmg = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.infoBox = new System.Windows.Forms.RichTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHpStatic
             // 
             this.lblHpStatic.AutoSize = true;
-            this.lblHpStatic.Location = new System.Drawing.Point(25, 22);
+            this.lblHpStatic.Location = new System.Drawing.Point(12, 9);
             this.lblHpStatic.Name = "lblHpStatic";
             this.lblHpStatic.Size = new System.Drawing.Size(41, 13);
             this.lblHpStatic.TabIndex = 0;
@@ -56,7 +62,7 @@
             // lblHp
             // 
             this.lblHp.AutoSize = true;
-            this.lblHp.Location = new System.Drawing.Point(70, 22);
+            this.lblHp.Location = new System.Drawing.Point(57, 9);
             this.lblHp.Name = "lblHp";
             this.lblHp.Size = new System.Drawing.Size(0, 13);
             this.lblHp.TabIndex = 1;
@@ -64,7 +70,7 @@
             // lblLvStatic
             // 
             this.lblLvStatic.AutoSize = true;
-            this.lblLvStatic.Location = new System.Drawing.Point(25, 44);
+            this.lblLvStatic.Location = new System.Drawing.Point(12, 31);
             this.lblLvStatic.Name = "lblLvStatic";
             this.lblLvStatic.Size = new System.Drawing.Size(36, 13);
             this.lblLvStatic.TabIndex = 2;
@@ -73,7 +79,7 @@
             // lblXpStatic
             // 
             this.lblXpStatic.AutoSize = true;
-            this.lblXpStatic.Location = new System.Drawing.Point(25, 66);
+            this.lblXpStatic.Location = new System.Drawing.Point(12, 53);
             this.lblXpStatic.Name = "lblXpStatic";
             this.lblXpStatic.Size = new System.Drawing.Size(24, 13);
             this.lblXpStatic.TabIndex = 3;
@@ -82,7 +88,7 @@
             // lblGpStatic
             // 
             this.lblGpStatic.AutoSize = true;
-            this.lblGpStatic.Location = new System.Drawing.Point(25, 88);
+            this.lblGpStatic.Location = new System.Drawing.Point(12, 75);
             this.lblGpStatic.Name = "lblGpStatic";
             this.lblGpStatic.Size = new System.Drawing.Size(32, 13);
             this.lblGpStatic.TabIndex = 4;
@@ -91,7 +97,7 @@
             // lblLv
             // 
             this.lblLv.AutoSize = true;
-            this.lblLv.Location = new System.Drawing.Point(70, 44);
+            this.lblLv.Location = new System.Drawing.Point(57, 31);
             this.lblLv.Name = "lblLv";
             this.lblLv.Size = new System.Drawing.Size(0, 13);
             this.lblLv.TabIndex = 5;
@@ -99,7 +105,7 @@
             // lblXp
             // 
             this.lblXp.AutoSize = true;
-            this.lblXp.Location = new System.Drawing.Point(70, 66);
+            this.lblXp.Location = new System.Drawing.Point(57, 53);
             this.lblXp.Name = "lblXp";
             this.lblXp.Size = new System.Drawing.Size(0, 13);
             this.lblXp.TabIndex = 6;
@@ -107,7 +113,7 @@
             // lblGp
             // 
             this.lblGp.AutoSize = true;
-            this.lblGp.Location = new System.Drawing.Point(70, 88);
+            this.lblGp.Location = new System.Drawing.Point(57, 75);
             this.lblGp.Name = "lblGp";
             this.lblGp.Size = new System.Drawing.Size(0, 13);
             this.lblGp.TabIndex = 7;
@@ -172,11 +178,67 @@
             this.lblMonsterHere.Size = new System.Drawing.Size(0, 13);
             this.lblMonsterHere.TabIndex = 13;
             // 
+            // BtnInteract
+            // 
+            this.BtnInteract.Location = new System.Drawing.Point(570, 475);
+            this.BtnInteract.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnInteract.Name = "BtnInteract";
+            this.BtnInteract.Size = new System.Drawing.Size(100, 35);
+            this.BtnInteract.TabIndex = 14;
+            this.BtnInteract.UseVisualStyleBackColor = true;
+            this.BtnInteract.Click += new System.EventHandler(this.BtnInteract_Click);
+            // 
+            // lblMonsterHp
+            // 
+            this.lblMonsterHp.AutoSize = true;
+            this.lblMonsterHp.Location = new System.Drawing.Point(283, 234);
+            this.lblMonsterHp.Name = "lblMonsterHp";
+            this.lblMonsterHp.Size = new System.Drawing.Size(0, 13);
+            this.lblMonsterHp.TabIndex = 15;
+            // 
+            // lblMonsterDmg
+            // 
+            this.lblMonsterDmg.AutoSize = true;
+            this.lblMonsterDmg.Location = new System.Drawing.Point(247, 341);
+            this.lblMonsterDmg.Name = "lblMonsterDmg";
+            this.lblMonsterDmg.Size = new System.Drawing.Size(0, 13);
+            this.lblMonsterDmg.TabIndex = 16;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView1.Enabled = false;
+            this.dataGridView1.Location = new System.Drawing.Point(15, 440);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(438, 105);
+            this.dataGridView1.TabIndex = 17;
+            // 
+            // infoBox
+            // 
+            this.infoBox.Location = new System.Drawing.Point(15, 92);
+            this.infoBox.Name = "infoBox";
+            this.infoBox.Size = new System.Drawing.Size(438, 342);
+            this.infoBox.TabIndex = 18;
+            this.infoBox.Text = "";
+            // 
             // AdventureMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.infoBox);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.lblMonsterDmg);
+            this.Controls.Add(this.lblMonsterHp);
+            this.Controls.Add(this.BtnInteract);
             this.Controls.Add(this.lblMonsterHere);
             this.Controls.Add(this.lblPlayerLocation);
             this.Controls.Add(this.BtnMoveWest);
@@ -193,7 +255,7 @@
             this.Controls.Add(this.lblHpStatic);
             this.Name = "AdventureMain";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.AdventureMain_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,6 +277,11 @@
         private System.Windows.Forms.Button BtnMoveWest;
         private System.Windows.Forms.Label lblPlayerLocation;
         private System.Windows.Forms.Label lblMonsterHere;
+        private System.Windows.Forms.Button BtnInteract;
+        private System.Windows.Forms.Label lblMonsterHp;
+        private System.Windows.Forms.Label lblMonsterDmg;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.RichTextBox infoBox;
     }
 }
 

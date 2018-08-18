@@ -21,7 +21,7 @@ namespace Engine
         {
             ILocation house = new ILocation(LOCN_ID_HOUSE, "Your House", "This is your home.");
 
-            ILocation forest = new ILocation(LOCN_ID_FOREST, "The Forest", "It's very quiet and shady.")
+            ILocation forest = new ILocation(LOCN_ID_FOREST, "Forest", "It's very quiet and shady.")
             {
                 MonsterHere = IMonster.MonsterID(2)
             };
@@ -36,12 +36,12 @@ namespace Engine
                 MonsterHere = IMonster.MonsterID(3)
             };
 
-            ILocation graveyard = new ILocation(LOCN_ID_GRAVEYARD, "The Graveyard", "It's always eerie walking through a graveyard in the dark.")
+            ILocation graveyard = new ILocation(LOCN_ID_GRAVEYARD, "Graveyard", "It's always eerie walking through a graveyard in the dark.")
             {
                 MonsterHere = IMonster.MonsterID(0)
             };
 
-            ILocation cave = new ILocation(LOCN_ID_CAVE, "Cave", "The mouth of a cave. Looks like someone's living in it.")
+            ILocation cave = new ILocation(LOCN_ID_CAVE, "Cave", "The mouth of a cave. Looks like someone's been living in it.")
             {
                 //NpcHere = null
             };
@@ -59,6 +59,8 @@ namespace Engine
             spidernest.LocToWest = forest;
 
             graveyard.LocToEast = forest;
+
+            cave.LocToSouth = deepforest;
 
             LocList.Add(house);
             LocList.Add(forest);

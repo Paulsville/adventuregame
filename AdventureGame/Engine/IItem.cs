@@ -9,7 +9,7 @@ namespace Engine
     public class IItem
     {
         int ID { get; set; }
-        string ItmName { get; set; }
+        public string ItmName { get; set; }
         string ItmDesc { get; set; }
 
         public IItem(int id, String name, String desc)

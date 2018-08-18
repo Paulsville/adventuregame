@@ -10,11 +10,11 @@ namespace Engine
     {
         public static void WorldBuilder()
         {
-            ListLocations.PopulateLocList();
             ListItems.PopulateItemList();
             ListNpcs.PopulateNpcList();
             ListQuests.PopulateQuestList();
             ListMonsters.PopulateMonsterList();
+            ListLocations.PopulateLocList();
         }
     }
 }

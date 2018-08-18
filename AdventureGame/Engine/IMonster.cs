@@ -10,18 +10,20 @@ namespace Engine
     {
         int ID { get; set; }
         public string Name { get; set; }
-        int DmgMin { get; set; }
-        int DmgMax { get; set; }
-        int XpReward { get; set; }
+        public int DmgMin { get; set; }
+        public int DmgMax { get; set; }
+        public int XpReward { get; set; }
+        public int GoldReward { get; set; }
         public List<LootItem> LootTable { get; set; }
 
-        public IMonster(int id, string name, int hpMax, int hpCur, int dmgMin, int dmgMax, int xpReward) : base(hpMax, hpCur)
+        public IMonster(int id, string name, int hpMax, int hpCur, int dmgMin, int dmgMax, int xpReward, int goldReward) : base(hpMax, hpCur)
         {
             ID = id;
             Name = name;
             DmgMin = dmgMin;
-            DmgMax = DmgMax;
+            DmgMax = dmgMax;
             XpReward = xpReward;
+            GoldReward = goldReward;
             LootTable = new List<LootItem>();
         }
 

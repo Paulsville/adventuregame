@@ -26,7 +26,7 @@ namespace Engine
 
         public static void PopulateItemList()
         {
-            ItemList.Add(new IWeapon(ITEM_ID_BASIC_SWORD, "Training Sword", "A simple iron sword.", 0, 0, 3));
+            ItemList.Add(new IWeapon(ITEM_ID_BASIC_SWORD, "Training Sword", "A simple iron sword.", 0, 1, 2));
             ItemList.Add(new IArmour(ITEM_ID_BASIC_HAT, "Cloth Cap", "A soft cloth hat.", 0));
             ItemList.Add(new IArmour(ITEM_ID_BASIC_SHIRT, "Linen Shirt", "Comfortable, but not very strong.", 0));
             ItemList.Add(new IArmour(ITEM_ID_BASIC_LEGGINGS, "Cloth Leggings", "They're slightly ripped at the bottoms.", 0));
