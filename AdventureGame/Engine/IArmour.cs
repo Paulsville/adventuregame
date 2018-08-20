@@ -15,7 +15,7 @@ namespace Engine
             BonusHp = bonusHP;
         }
 
-        public static void EquipArmour(int slotID, IArmour itemToEquip, Player player)
+        /*public static void EquipArmour(int slotID, IArmour itemToEquip, Player player)
         {
             player.Inventory.Remove(itemToEquip);
 
@@ -59,6 +59,6 @@ namespace Engine
                 default:
                     break;
             }
-        }
+        }*/
     }
 }

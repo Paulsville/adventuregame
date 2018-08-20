@@ -39,7 +39,37 @@ namespace Engine
             locDesc = loc.Desc;
             if(loc.MonsterHere != null)
             {
-                monster = "You see a " + loc.MonsterHere.Name + ".";
+                if(loc.MonsterHere.HpCur == 0)
+                {
+                    monster = "There is a dead " + loc.MonsterHere.Name + " on the ground.";
+                }
+                else
+                {
+                    if(loc.MonsterHere.HpCur == -1)
+                    {
+                        if ("aeiouAEIOU".IndexOf(loc.MonsterHere.Name.Substring(0, 1)) >= 0)
+                        {
+                            monster = "You see an " + loc.MonsterHere.Name + " " + "(0" + "/" + loc.MonsterHere.HpMax + " HP).";
+                        }
+                        else
+                        {
+                            monster = "You see a " + loc.MonsterHere.Name + " " + "(0" + "/" + loc.MonsterHere.HpMax + " HP).";
+                        }
+                    }
+                    else
+                    {
+                        if ("aeiouAEIOU".IndexOf(loc.MonsterHere.Name.Substring(0, 1)) >= 0)
+                        {
+                            monster = "You see an " + loc.MonsterHere.Name + " " + "(" + loc.MonsterHere.HpCur + "/" + loc.MonsterHere.HpMax + " HP).";
+                        }
+                        else
+                        {
+                            monster = "You see a " + loc.MonsterHere.Name + " " + "(" + loc.MonsterHere.HpCur + "/" + loc.MonsterHere.HpMax + " HP).";
+                        }
+                    }
+                    
+                }
+                
             }
             else
             {
@@ -47,5 +77,7 @@ namespace Engine
             }
             return locHeader + "\n\n" + locDesc + "\n\n" + monster;
         }
+
+        
     }
 }

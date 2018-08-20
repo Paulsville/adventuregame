@@ -8,15 +8,13 @@ namespace Engine
 {
     public class InventoryItem
     {
-        IItem Itm { get; set; }
-        int ItmPosition { get; set; }
-        int ItmQty { get; set; }
+        public IItem Itm { get; set; }
+        public int ItmQty { get; set; }
 
-        public InventoryItem(IItem itm, int itmPosition, int itmQty)
+        public InventoryItem(IItem itm, int itmQty)
         {
             Itm = itm;
-            ItmPosition = itmPosition;
-            ItmQty = ItmQty;
+            ItmQty = itmQty;
         }
     }
 }

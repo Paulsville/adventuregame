@@ -12,7 +12,7 @@ namespace Engine
         public int Xp { get; set; }
         public int Gold { get; set; }
 
-        public List<IItem> Inventory { get; set; }
+        public List<InventoryItem> Inventory { get; set; }
         public List<IItem> QuestLog { get; set; }
 
         public IArmour HeadSlot { get; set; }
@@ -25,13 +25,16 @@ namespace Engine
 
         public ILocation PlayerLocation { get; set; }
 
+        public bool Combat { get; set; }
+        public bool Dead { get; set; }
+
         public Player(int hpMax, int hpCur, int lv, int xp, int gp) : base(hpMax, hpCur)
         {
             Level = lv;
             Xp = xp;
             Gold = gp;
-
-            List<IItem> Inventory = new List<IItem>();
+            Combat = false;
+            
             List<Quest> QuestLog = new List<Quest>();
         }
     }
