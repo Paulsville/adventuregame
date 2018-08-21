@@ -12,7 +12,7 @@ namespace Engine
         public string Name { get; set; }
         public string Desc { get; set; }
         public INpc NpcHere { get; set; }
-        public IMonster MonsterHere { get; set; }
+        public Monster MonsterHere { get; set; }
         public IItem ItemToEnter { get; set; }
         public ILocation LocToNorth { get; set; }
         public ILocation LocToEast { get; set; }

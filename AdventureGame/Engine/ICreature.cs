@@ -9,12 +9,10 @@ namespace Engine
     public class ICreature
     {
         public int HpMax { get; set; }
-        public int HpCur { get; set; }
 
-        public ICreature(int hpMax, int hpCur)
+        public ICreature(int hpMax)
         {
             HpMax = hpMax;
-            HpCur = hpCur;
 
         }
     }

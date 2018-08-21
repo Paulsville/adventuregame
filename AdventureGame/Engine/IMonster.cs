@@ -16,7 +16,7 @@ namespace Engine
         public int GoldReward { get; set; }
         public List<LootItem> LootTable { get; set; }
 
-        public IMonster(int id, string name, int hpMax, int hpCur, int dmgMin, int dmgMax, int xpReward, int goldReward) : base(hpMax, hpCur)
+        public IMonster(int id, string name, int hpMax, int dmgMin, int dmgMax, int xpReward, int goldReward) : base(hpMax)
         {
             ID = id;
             Name = name;

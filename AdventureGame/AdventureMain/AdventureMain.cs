@@ -36,12 +36,9 @@ namespace AdventureMain
             _player.PlayerLocation = ILocation.LocationID(0);
             _player.Weapon = (IWeapon)IItem.ItemID(0);
             _player.Inventory.Add(new InventoryItem(IItem.ItemID(10), 1));
-            
+
             //refresh labels
-            lblHp.Text = _player.HpCur.ToString();
-            lblLv.Text = _player.Level.ToString();
-            lblXp.Text = _player.Xp.ToString();
-            lblGp.Text = _player.Gold.ToString();
+            UpdatePlayerLabels();
             infoBox.Text = Utils.LocInfoWriter(_player);
             UpdateInventory();
 
@@ -127,7 +124,7 @@ namespace AdventureMain
             {
                 string playerDmgMess;
                 string monsterDmgMess;
-                IMonster attacker = _player.PlayerLocation.MonsterHere;
+                Monster attacker = _player.PlayerLocation.MonsterHere;
                 if (attacker.HpCur > 0)
                 {
                     #region playerattack
@@ -135,7 +132,7 @@ namespace AdventureMain
                     int dmg;
                     try
                     {
-                        dmg = Utils.NumberBetween(_player.Weapon.MinDmg, _player.Weapon.MaxDmg);
+                        dmg = Utils.NumberBetween(_player.Weapon.MinDmg, _player.Weapon.MaxDmg) + _player.DmgBonus;
                         attacker.HpCur -= dmg;
                     }
                     catch
@@ -167,16 +164,6 @@ namespace AdventureMain
                         _player.Gold += attacker.GoldReward;
                         _player.Xp += attacker.XpReward;
 
-
-                        if(CheckForLevelUp())
-                        {
-                            _player.Level++;
-                            infoBox.Text += "\n\nYou have reached level " + _player.Level.ToString() + "!";
-                        }
-
-                        lblGp.Text = _player.Gold.ToString();
-                        lblXp.Text = _player.Xp.ToString();
-
                         foreach (LootItem item in attacker.LootTable)
                         {
                             int lootRoll = Utils.NumberBetween(0, 100);
@@ -187,9 +174,12 @@ namespace AdventureMain
                                 infoBox.Text += "\n\nYou receive item: " + item.Item.ItmName + " x" + itemQty;
                             }
                         }
+
                         UpdateInventory();
+                        CheckForLevelUp();
+                        UpdatePlayerLabels();
                         attacker.HpCur = 0;
-                        
+
                     }
                     #endregion
 
@@ -216,8 +206,8 @@ namespace AdventureMain
                             infoBox.Text += "\n\nYou are dead!";
                         }
 
-                        lblHp.Text = _player.HpCur.ToString();
-                        
+                        UpdatePlayerLabels();
+
                     }
                     #endregion
                 }
@@ -234,7 +224,9 @@ namespace AdventureMain
         {
             int inventoryItemID = int.Parse(InventoryView.Rows[e.RowIndex].Cells[3].Value.ToString());
             IItem selection = _player.Inventory[inventoryItemID].Itm;
-            if(selection.IsConsumable)
+
+            #region potions
+            if (selection.IsConsumable)
             {
                 IConsumable healItem = (IConsumable)_player.Inventory[inventoryItemID].Itm;
                 _player.HpCur += healItem.HpRestore;
@@ -256,11 +248,10 @@ namespace AdventureMain
                 UpdateInventory();
 
             }
-            
+            #endregion
+
         }
-
         
-
         private void UpdateInventory()
         {
             InventoryView.Rows.Clear();
@@ -270,16 +261,25 @@ namespace AdventureMain
             }
         }
 
-        private bool CheckForLevelUp()
+        private void CheckForLevelUp()
         {
             if(((_player.Xp / _player.Level) - 5) > 10)
             {
-                return true;
+                _player.Level++;
+                _player.HpMax += 3;
+                _player.DmgBonus++;
+                _player.HpCur = _player.HpMax;
+                infoBox.Text += "\n\nYou have reached level " + _player.Level.ToString() 
+                    + "!\n\nYour maximum health has increased by 3.\n\nYour damage has increased by 1.";
             }
-            else
-            {
-                return false;
-            }
+        }
+
+        private void UpdatePlayerLabels()
+        {
+            lblHp.Text = _player.HpCur.ToString() + " / " + _player.HpMax.ToString();
+            lblLv.Text = _player.Level.ToString();
+            lblXp.Text = _player.Xp.ToString() + " / " + _player.Level * 15;
+            lblGp.Text = _player.Gold.ToString();
         }
     }
 }

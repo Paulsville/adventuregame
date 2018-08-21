@@ -17,16 +17,16 @@ namespace Engine
 
         public static void PopulateMonsterList()
         {
-            IMonster rat = new IMonster(MONSTER_ID_RAT, "Giant Rat", 10, 10, 1, 1, 10, 1);
+            IMonster rat = new IMonster(MONSTER_ID_RAT, "Giant Rat", 10, 1, 1, 10, 1);
             rat.LootTable.Add(new LootItem(IItem.ItemID(6), 100, 1, 1));
 
-            IMonster wolf = new IMonster(MONSTER_ID_WOLF, "Lone Wolf", 15, 15, 2, 4, 15, 2);
+            IMonster wolf = new IMonster(MONSTER_ID_WOLF, "Lone Wolf", 15, 2, 4, 15, 2);
             wolf.LootTable.Add(new LootItem(IItem.ItemID(7), 100, 1, 1));
 
-            IMonster snake = new IMonster(MONSTER_ID_SNAKE, "Adder", 7, 7, 0, 1, 10, 1);
+            IMonster snake = new IMonster(MONSTER_ID_SNAKE, "Adder", 7, 0, 1, 10, 1);
             snake.LootTable.Add(new LootItem(IItem.ItemID(8), 100, 1, 1));
 
-            IMonster spider = new IMonster(MONSTER_ID_SPIDER, "Giant Spider", 8, 8, 2, 3, 15, 1);
+            IMonster spider = new IMonster(MONSTER_ID_SPIDER, "Giant Spider", 8, 2, 3, 15, 1);
             spider.LootTable.Add(new LootItem(IItem.ItemID(9), 100, 1, 2));
 
             MonsterList.Add(rat);
