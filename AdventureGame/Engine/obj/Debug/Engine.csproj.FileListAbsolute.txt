@@ -4,3 +4,9 @@ C:\Users\Paul\Documents\GitHub\adventuregame\AdventureGame\Engine\bin\Debug\Engi
 C:\Users\Paul\Documents\GitHub\adventuregame\AdventureGame\Engine\bin\Debug\Engine.pdb
 C:\Users\Paul\Documents\GitHub\adventuregame\AdventureGame\Engine\obj\Debug\Engine.dll
 C:\Users\Paul\Documents\GitHub\adventuregame\AdventureGame\Engine\obj\Debug\Engine.pdb
+C:\Users\pauld\eclipse-workspace\adventuregame\AdventureGame\Engine\bin\Debug\Engine.dll
+C:\Users\pauld\eclipse-workspace\adventuregame\AdventureGame\Engine\bin\Debug\Engine.pdb
+C:\Users\pauld\eclipse-workspace\adventuregame\AdventureGame\Engine\obj\Debug\Engine.csprojAssemblyReference.cache
+C:\Users\pauld\eclipse-workspace\adventuregame\AdventureGame\Engine\obj\Debug\Engine.csproj.CoreCompileInputs.cache
+C:\Users\pauld\eclipse-workspace\adventuregame\AdventureGame\Engine\obj\Debug\Engine.dll
+C:\Users\pauld\eclipse-workspace\adventuregame\AdventureGame\Engine\obj\Debug\Engine.pdb

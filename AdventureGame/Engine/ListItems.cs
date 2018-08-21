@@ -24,6 +24,9 @@ namespace Engine
         public const int ITEM_ID_SNAKE_SKIN = 8;
         public const int ITEM_ID_SPIDER_FANGS = 9;
 
+        //health potions
+        public const int ITEM_ID_HEALTH_POTION = 10;
+
         public static void PopulateItemList()
         {
             ItemList.Add(new IWeapon(ITEM_ID_BASIC_SWORD, "Training Sword", "A simple iron sword.", 0, 1, 2));
@@ -37,6 +40,8 @@ namespace Engine
             ItemList.Add(new IItem(ITEM_ID_WOLF_FUR, "Wolf Fur", "Fur skinned from a wolf."));
             ItemList.Add(new IItem(ITEM_ID_SNAKE_SKIN, "Snake Skin", "Shed from an adder."));
             ItemList.Add(new IItem(ITEM_ID_SPIDER_FANGS, "Spider Fangs", "Pointy and probably venomous."));
+
+            ItemList.Add(new IConsumable(ITEM_ID_HEALTH_POTION, "Health Potion", "Restores 10 Health.", 10));
         }
     }
 }

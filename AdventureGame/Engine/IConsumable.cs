@@ -8,13 +8,11 @@ namespace Engine
 {
     public class IConsumable : IItem
     {
-        int HpRestore { get; set; }
-        int MpRestore { get; set; }
+        public int HpRestore { get; set; }
 
-        public IConsumable(int id, string name, string desc, int hpRestore, int mpRestore) : base(id, name, desc)
+        public IConsumable(int id, string name, string desc, int hpRestore) : base(id, name, desc, true)
         {
             HpRestore = hpRestore;
-            MpRestore = mpRestore;
         }
     }
 }

@@ -8,15 +8,17 @@ namespace Engine
 {
     public class IItem
     {
-        int ID { get; set; }
+        public int ID { get; set; }
         public string ItmName { get; set; }
         public string ItmDesc { get; set; }
+        public bool IsConsumable { get; set; }
 
-        public IItem(int id, String name, String desc)
+        public IItem(int id, string name, string desc, bool isConsumable = false)
         {
             ID = id;
             ItmName = name;
             ItmDesc = desc;
+            IsConsumable = isConsumable;
         }
 
         public static IItem ItemID(int id)
