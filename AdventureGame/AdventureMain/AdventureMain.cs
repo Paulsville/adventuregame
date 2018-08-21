@@ -28,10 +28,13 @@ namespace AdventureMain
             lblGp.Text = _player.Gold.ToString();
             infoBox.Text = Utils.LocInfoWriter(_player);
 
-            inventoryView.ColumnCount = 2;
-            inventoryView.Columns[0].Name = "Item";
-            inventoryView.Columns[0].Width = 125;
-            inventoryView.Columns[1].Name = "Quantity";
+            InventoryView.ColumnCount = 3;
+            InventoryView.Columns[0].Name = "Item";
+            InventoryView.Columns[0].Width = 90;
+            InventoryView.Columns[1].Name = "Qty";
+            InventoryView.Columns[1].Width = 30;
+            InventoryView.Columns[2].Name = "Details";
+            InventoryView.Columns[2].Width = 180;
         }
 
         private void BtnMoveNorth_Click(object sender, EventArgs e)
@@ -150,9 +153,20 @@ namespace AdventureMain
                         
                     }
                 }
+
+                else
+                {
+                    infoBox.Text += "\n\nYou hit the dead " + attacker.Name + ". Was that really necessary?";
+                }
                 
 
             }
+        }
+
+        private void InventoryView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            infoBox.Text = "";
+            
         }
 
         private void MoveTo(char dir)
@@ -191,7 +205,6 @@ namespace AdventureMain
                         default:
                             break;
                     }
-                    lblPlayerLocation.Text = loc.Name;
                     infoBox.Text = Utils.LocInfoWriter(_player);
                 }
                 else
@@ -205,10 +218,10 @@ namespace AdventureMain
 
         private void UpdateInventory()
         {
-            inventoryView.Rows.Clear();
+            InventoryView.Rows.Clear();
             foreach(InventoryItem item in _player.Inventory)
             {
-                inventoryView.Rows.Add(new[] { item.Itm.ItmName, item.ItmQty.ToString() });
+                InventoryView.Rows.Add(new[] { item.Itm.ItmName, item.ItmQty.ToString(), item.Itm.ItmDesc });
             }
         }
 

@@ -40,14 +40,10 @@
             this.BtnMoveSouth = new System.Windows.Forms.Button();
             this.BtnMoveEast = new System.Windows.Forms.Button();
             this.BtnMoveWest = new System.Windows.Forms.Button();
-            this.lblPlayerLocation = new System.Windows.Forms.Label();
-            this.lblMonsterHere = new System.Windows.Forms.Label();
             this.BtnInteract = new System.Windows.Forms.Button();
-            this.lblMonsterHp = new System.Windows.Forms.Label();
-            this.lblMonsterDmg = new System.Windows.Forms.Label();
-            this.inventoryView = new System.Windows.Forms.DataGridView();
+            this.InventoryView = new System.Windows.Forms.DataGridView();
             this.infoBox = new System.Windows.Forms.RichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHpStatic
@@ -162,22 +158,6 @@
             this.BtnMoveWest.UseVisualStyleBackColor = true;
             this.BtnMoveWest.Click += new System.EventHandler(this.BtnMoveWest_Click);
             // 
-            // lblPlayerLocation
-            // 
-            this.lblPlayerLocation.AutoSize = true;
-            this.lblPlayerLocation.Location = new System.Drawing.Point(205, 198);
-            this.lblPlayerLocation.Name = "lblPlayerLocation";
-            this.lblPlayerLocation.Size = new System.Drawing.Size(0, 13);
-            this.lblPlayerLocation.TabIndex = 12;
-            // 
-            // lblMonsterHere
-            // 
-            this.lblMonsterHere.AutoSize = true;
-            this.lblMonsterHere.Location = new System.Drawing.Point(208, 235);
-            this.lblMonsterHere.Name = "lblMonsterHere";
-            this.lblMonsterHere.Size = new System.Drawing.Size(0, 13);
-            this.lblMonsterHere.TabIndex = 13;
-            // 
             // BtnInteract
             // 
             this.BtnInteract.Location = new System.Drawing.Point(570, 475);
@@ -188,44 +168,29 @@
             this.BtnInteract.UseVisualStyleBackColor = true;
             this.BtnInteract.Click += new System.EventHandler(this.BtnInteract_Click);
             // 
-            // lblMonsterHp
+            // InventoryView
             // 
-            this.lblMonsterHp.AutoSize = true;
-            this.lblMonsterHp.Location = new System.Drawing.Point(283, 234);
-            this.lblMonsterHp.Name = "lblMonsterHp";
-            this.lblMonsterHp.Size = new System.Drawing.Size(0, 13);
-            this.lblMonsterHp.TabIndex = 15;
-            // 
-            // lblMonsterDmg
-            // 
-            this.lblMonsterDmg.AutoSize = true;
-            this.lblMonsterDmg.Location = new System.Drawing.Point(247, 341);
-            this.lblMonsterDmg.Name = "lblMonsterDmg";
-            this.lblMonsterDmg.Size = new System.Drawing.Size(0, 13);
-            this.lblMonsterDmg.TabIndex = 16;
-            // 
-            // inventoryView
-            // 
-            this.inventoryView.AllowUserToAddRows = false;
-            this.inventoryView.AllowUserToDeleteRows = false;
-            this.inventoryView.AllowUserToResizeColumns = false;
-            this.inventoryView.AllowUserToResizeRows = false;
-            this.inventoryView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.inventoryView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.inventoryView.Enabled = false;
-            this.inventoryView.Location = new System.Drawing.Point(570, 9);
-            this.inventoryView.MultiSelect = false;
-            this.inventoryView.Name = "inventoryView";
-            this.inventoryView.ReadOnly = true;
-            this.inventoryView.RowHeadersVisible = false;
-            this.inventoryView.Size = new System.Drawing.Size(200, 414);
-            this.inventoryView.TabIndex = 17;
+            this.InventoryView.AllowUserToAddRows = false;
+            this.InventoryView.AllowUserToDeleteRows = false;
+            this.InventoryView.AllowUserToResizeColumns = false;
+            this.InventoryView.AllowUserToResizeRows = false;
+            this.InventoryView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.InventoryView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.InventoryView.Location = new System.Drawing.Point(460, 9);
+            this.InventoryView.MultiSelect = false;
+            this.InventoryView.Name = "InventoryView";
+            this.InventoryView.ReadOnly = true;
+            this.InventoryView.RowHeadersVisible = false;
+            this.InventoryView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.InventoryView.Size = new System.Drawing.Size(310, 414);
+            this.InventoryView.TabIndex = 17;
+            this.InventoryView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InventoryView_CellClick);
             // 
             // infoBox
             // 
-            this.infoBox.Location = new System.Drawing.Point(136, 9);
+            this.infoBox.Location = new System.Drawing.Point(126, 9);
             this.infoBox.Name = "infoBox";
-            this.infoBox.Size = new System.Drawing.Size(434, 316);
+            this.infoBox.Size = new System.Drawing.Size(328, 316);
             this.infoBox.TabIndex = 18;
             this.infoBox.Text = "";
             // 
@@ -235,12 +200,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.infoBox);
-            this.Controls.Add(this.inventoryView);
-            this.Controls.Add(this.lblMonsterDmg);
-            this.Controls.Add(this.lblMonsterHp);
+            this.Controls.Add(this.InventoryView);
             this.Controls.Add(this.BtnInteract);
-            this.Controls.Add(this.lblMonsterHere);
-            this.Controls.Add(this.lblPlayerLocation);
             this.Controls.Add(this.BtnMoveWest);
             this.Controls.Add(this.BtnMoveEast);
             this.Controls.Add(this.BtnMoveSouth);
@@ -255,7 +216,7 @@
             this.Controls.Add(this.lblHpStatic);
             this.Name = "AdventureMain";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.inventoryView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,12 +236,8 @@
         private System.Windows.Forms.Button BtnMoveSouth;
         private System.Windows.Forms.Button BtnMoveEast;
         private System.Windows.Forms.Button BtnMoveWest;
-        private System.Windows.Forms.Label lblPlayerLocation;
-        private System.Windows.Forms.Label lblMonsterHere;
         private System.Windows.Forms.Button BtnInteract;
-        private System.Windows.Forms.Label lblMonsterHp;
-        private System.Windows.Forms.Label lblMonsterDmg;
-        private System.Windows.Forms.DataGridView inventoryView;
+        private System.Windows.Forms.DataGridView InventoryView;
         private System.Windows.Forms.RichTextBox infoBox;
     }
 }
