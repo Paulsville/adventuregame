@@ -22,6 +22,7 @@ namespace Engine
         public int PosX { get; set; }
         public int PosY { get; set; }
         public bool Discovered { get; set; }
+        public bool Revealed { get; set; }
 
         public ILocation(int id, string name, string desc, int posX, int posY, INpc npcHere = null, IMonster monsterHere = null)
         {
@@ -31,6 +32,7 @@ namespace Engine
             NpcHere = npcHere;
             MonsterHere = monsterHere;
             Discovered = false;
+            Revealed = false;
             PosX = posX;
             PosY = posY;
         }

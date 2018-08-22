@@ -34,6 +34,7 @@ namespace AdventureMain
             InventoryView.Columns[3].Visible = false;
 
             //initialise minimap
+            
             MinimapGrid.ColumnCount = 3;
             MinimapGrid.RowCount = 4;
             MinimapGrid.Columns[0].Name = "1";
@@ -117,11 +118,6 @@ namespace AdventureMain
                         default:
                             break;
                     }
-
-                    if(!_player.PlayerLocation.Discovered)
-                    {
-                        _player.PlayerLocation.Discovered = true;
-                    }
                     
                     if(_player.PlayerLocation.MonsterHere != null)
                     {
@@ -141,6 +137,17 @@ namespace AdventureMain
                 }
             }
             UpdateInventory();
+            _player.PlayerLocation.Revealed = true;
+
+            try
+            {
+                _player.PlayerLocation.LocToNorth.Discovered = true;
+                _player.PlayerLocation.LocToEast.Discovered = true;
+                _player.PlayerLocation.LocToSouth.Discovered = true;
+                _player.PlayerLocation.LocToWest.Discovered = true;
+            }
+            catch { }
+
             UpdateMinimap();
         }
 
@@ -329,17 +336,20 @@ namespace AdventureMain
         {
             foreach(ILocation loc in ListLocations.LocList)
             {
-                if(loc.Discovered)
+                if(loc.Revealed)
                 {
                     MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Value = loc.Name;
                 }
-                else
+                else if(loc.Discovered)
                 {
                     MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Value = "???";
+                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Style.BackColor = System.Drawing.Color.White;
                 }
-                
+                else
+                {
+                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Style.BackColor = System.Drawing.Color.Black;
+                }
             }
-            MinimapGrid.Rows[_player.PlayerLocation.PosY - 1].Cells[_player.PlayerLocation.PosX - 1].Selected = true;
 
             for(int i = 0; i < MinimapGrid.Rows.Count; i++)
             {
@@ -348,12 +358,14 @@ namespace AdventureMain
                     var checkCell = MinimapGrid.Rows[i].Cells[j];
                     if(checkCell.Value == null)
                     {
-                        checkCell.Value = "Nothing";
+                        checkCell.Style.BackColor = System.Drawing.Color.Black;
                     }
                 }
                 
             }
-            
+
+            MinimapGrid.Rows[_player.PlayerLocation.PosY - 1].Cells[_player.PlayerLocation.PosX - 1].Selected = true;
+
         }
     }
 }

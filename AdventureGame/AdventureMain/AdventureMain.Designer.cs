@@ -199,6 +199,7 @@
             // 
             // MinimapGrid
             // 
+            this.MinimapGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.MinimapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MinimapGrid.ColumnHeadersVisible = false;
             this.MinimapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;

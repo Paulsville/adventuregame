@@ -16,17 +16,20 @@ namespace Engine
         public const int LOCN_ID_SPIDER_NEST = 3;
         public const int LOCN_ID_GRAVEYARD = 4;
         public const int LOCN_ID_CAVE = 5;
+        public const int LOCN_ID_NOWHERE = 6;
 
         public static void PopulateLocList()
         {
             ILocation house = new ILocation(LOCN_ID_HOUSE, "Your House", "This is your home.", 2, 4)
             {
-                Discovered = true
+                Discovered = true,
+                Revealed = true
             };
 
             ILocation forest = new ILocation(LOCN_ID_FOREST, "Forest", "It's very quiet and shady.", 2, 3)
             {
-                MonsterHere = IMonster.MonsterID(2)
+                MonsterHere = IMonster.MonsterID(2),
+                Discovered = true
             };
 
             ILocation deepforest = new ILocation(LOCN_ID_DEEP_FOREST, "Deep Forest", "It's dark and damp this far into the woods.", 2, 2)
