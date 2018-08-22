@@ -193,16 +193,22 @@
             // 
             this.infoBox.Location = new System.Drawing.Point(126, 9);
             this.infoBox.Name = "infoBox";
-            this.infoBox.Size = new System.Drawing.Size(338, 280);
+            this.infoBox.Size = new System.Drawing.Size(338, 228);
             this.infoBox.TabIndex = 18;
             this.infoBox.Text = "";
             // 
             // MinimapGrid
             // 
             this.MinimapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.MinimapGrid.Location = new System.Drawing.Point(15, 295);
+            this.MinimapGrid.ColumnHeadersVisible = false;
+            this.MinimapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.MinimapGrid.Enabled = false;
+            this.MinimapGrid.Location = new System.Drawing.Point(15, 245);
+            this.MinimapGrid.MultiSelect = false;
             this.MinimapGrid.Name = "MinimapGrid";
-            this.MinimapGrid.Size = new System.Drawing.Size(449, 250);
+            this.MinimapGrid.ReadOnly = true;
+            this.MinimapGrid.RowHeadersVisible = false;
+            this.MinimapGrid.Size = new System.Drawing.Size(450, 300);
             this.MinimapGrid.TabIndex = 19;
             // 
             // AdventureMain

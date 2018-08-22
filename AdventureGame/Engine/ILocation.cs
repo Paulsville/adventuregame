@@ -19,9 +19,11 @@ namespace Engine
         public ILocation LocToEast { get; set; }
         public ILocation LocToSouth { get; set; }
         public ILocation LocToWest { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
         public bool Discovered { get; set; }
 
-        public ILocation(int id, string name, string desc, INpc npcHere = null, IMonster monsterHere = null)
+        public ILocation(int id, string name, string desc, int posX, int posY, INpc npcHere = null, IMonster monsterHere = null)
         {
             ID = id;
             Name = name;
@@ -29,6 +31,8 @@ namespace Engine
             NpcHere = npcHere;
             MonsterHere = monsterHere;
             Discovered = false;
+            PosX = posX;
+            PosY = posY;
         }
 
         public static ILocation LocationID(int id)

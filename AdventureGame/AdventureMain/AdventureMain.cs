@@ -37,8 +37,12 @@ namespace AdventureMain
             MinimapGrid.ColumnCount = 3;
             MinimapGrid.RowCount = 4;
             MinimapGrid.Columns[0].Name = "1";
+            MinimapGrid.Columns[0].Width = 150;
             MinimapGrid.Columns[1].Name = "2";
+            MinimapGrid.Columns[1].Width = 150;
             MinimapGrid.Columns[2].Name = "3";
+            MinimapGrid.Columns[2].Width = 150;
+            
 
             //starting properties and equipment
             _player.PlayerLocation = ILocation.LocationID(0);
@@ -49,6 +53,7 @@ namespace AdventureMain
             UpdatePlayerLabels();
             infoBox.Text = Utils.LocInfoWriter(_player);
             UpdateInventory();
+            UpdateMinimap();
 
             #endregion
 
@@ -136,6 +141,7 @@ namespace AdventureMain
                 }
             }
             UpdateInventory();
+            UpdateMinimap();
         }
 
         #endregion
@@ -316,6 +322,37 @@ namespace AdventureMain
             }
             infoBox.Text += "\n\nYou receive item: " + item.ItmName + " x" + qty;
             UpdateInventory();
+            
+        }
+
+        private void UpdateMinimap()
+        {
+            foreach(ILocation loc in ListLocations.LocList)
+            {
+                if(loc.Discovered)
+                {
+                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Value = loc.Name;
+                }
+                else
+                {
+                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Value = "???";
+                }
+                
+            }
+            MinimapGrid.Rows[_player.PlayerLocation.PosY - 1].Cells[_player.PlayerLocation.PosX - 1].Selected = true;
+
+            for(int i = 0; i < MinimapGrid.Rows.Count; i++)
+            {
+                for(int j = 0; j < MinimapGrid.ColumnCount; j++)
+                {
+                    var checkCell = MinimapGrid.Rows[i].Cells[j];
+                    if(checkCell.Value == null)
+                    {
+                        checkCell.Value = "Nothing";
+                    }
+                }
+                
+            }
             
         }
     }
