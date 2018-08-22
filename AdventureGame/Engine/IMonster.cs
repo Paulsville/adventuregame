@@ -15,8 +15,9 @@ namespace Engine
         public int XpReward { get; set; }
         public int GoldReward { get; set; }
         public List<LootItem> LootTable { get; set; }
+        public bool Respawn { get; set; }
 
-        public IMonster(int id, string name, int hpMax, int dmgMin, int dmgMax, int xpReward, int goldReward) : base(hpMax)
+        public IMonster(int id, string name, int hpMax, int dmgMin, int dmgMax, int xpReward, int goldReward, bool respawn = false) : base(hpMax)
         {
             ID = id;
             Name = name;
@@ -25,6 +26,7 @@ namespace Engine
             XpReward = xpReward;
             GoldReward = goldReward;
             LootTable = new List<LootItem>();
+            Respawn = respawn;
         }
 
         public static IMonster MonsterID(int id)

@@ -43,7 +43,9 @@
             this.BtnInteract = new System.Windows.Forms.Button();
             this.InventoryView = new System.Windows.Forms.DataGridView();
             this.infoBox = new System.Windows.Forms.RichTextBox();
+            this.MinimapGrid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinimapGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHpStatic
@@ -116,7 +118,7 @@
             // 
             // BtnMoveNorth
             // 
-            this.BtnMoveNorth.Location = new System.Drawing.Point(570, 440);
+            this.BtnMoveNorth.Location = new System.Drawing.Point(570, 475);
             this.BtnMoveNorth.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMoveNorth.Name = "BtnMoveNorth";
             this.BtnMoveNorth.Size = new System.Drawing.Size(100, 35);
@@ -138,7 +140,7 @@
             // 
             // BtnMoveEast
             // 
-            this.BtnMoveEast.Location = new System.Drawing.Point(670, 475);
+            this.BtnMoveEast.Location = new System.Drawing.Point(670, 510);
             this.BtnMoveEast.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMoveEast.Name = "BtnMoveEast";
             this.BtnMoveEast.Size = new System.Drawing.Size(100, 35);
@@ -149,7 +151,7 @@
             // 
             // BtnMoveWest
             // 
-            this.BtnMoveWest.Location = new System.Drawing.Point(470, 475);
+            this.BtnMoveWest.Location = new System.Drawing.Point(470, 510);
             this.BtnMoveWest.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMoveWest.Name = "BtnMoveWest";
             this.BtnMoveWest.Size = new System.Drawing.Size(100, 35);
@@ -160,7 +162,7 @@
             // 
             // BtnInteract
             // 
-            this.BtnInteract.Location = new System.Drawing.Point(570, 475);
+            this.BtnInteract.Location = new System.Drawing.Point(570, 440);
             this.BtnInteract.Margin = new System.Windows.Forms.Padding(0);
             this.BtnInteract.Name = "BtnInteract";
             this.BtnInteract.Size = new System.Drawing.Size(100, 35);
@@ -176,13 +178,14 @@
             this.InventoryView.AllowUserToResizeRows = false;
             this.InventoryView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.InventoryView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.InventoryView.Location = new System.Drawing.Point(460, 9);
+            this.InventoryView.Location = new System.Drawing.Point(470, 9);
             this.InventoryView.MultiSelect = false;
             this.InventoryView.Name = "InventoryView";
             this.InventoryView.ReadOnly = true;
             this.InventoryView.RowHeadersVisible = false;
+            this.InventoryView.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.InventoryView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.InventoryView.Size = new System.Drawing.Size(310, 414);
+            this.InventoryView.Size = new System.Drawing.Size(300, 414);
             this.InventoryView.TabIndex = 17;
             this.InventoryView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InventoryView_CellClick);
             // 
@@ -190,15 +193,24 @@
             // 
             this.infoBox.Location = new System.Drawing.Point(126, 9);
             this.infoBox.Name = "infoBox";
-            this.infoBox.Size = new System.Drawing.Size(328, 316);
+            this.infoBox.Size = new System.Drawing.Size(338, 280);
             this.infoBox.TabIndex = 18;
             this.infoBox.Text = "";
+            // 
+            // MinimapGrid
+            // 
+            this.MinimapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MinimapGrid.Location = new System.Drawing.Point(15, 295);
+            this.MinimapGrid.Name = "MinimapGrid";
+            this.MinimapGrid.Size = new System.Drawing.Size(449, 250);
+            this.MinimapGrid.TabIndex = 19;
             // 
             // AdventureMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.MinimapGrid);
             this.Controls.Add(this.infoBox);
             this.Controls.Add(this.InventoryView);
             this.Controls.Add(this.BtnInteract);
@@ -217,6 +229,7 @@
             this.Name = "AdventureMain";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinimapGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,6 +252,7 @@
         private System.Windows.Forms.Button BtnInteract;
         private System.Windows.Forms.DataGridView InventoryView;
         private System.Windows.Forms.RichTextBox infoBox;
+        private System.Windows.Forms.DataGridView MinimapGrid;
     }
 }
 

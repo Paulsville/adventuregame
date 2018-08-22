@@ -12,6 +12,7 @@ namespace Engine
         public int Xp { get; set; }
         public int Gold { get; set; }
         public int DmgBonus { get; set; }
+        public int HpCur { get; set; }
 
         public List<InventoryItem> Inventory { get; set; }
         public List<IItem> QuestLog { get; set; }
@@ -29,8 +30,9 @@ namespace Engine
         public bool Combat { get; set; }
         public bool Dead { get; set; }
 
-        public Player(int hpMax, int hpCur, int lv, int xp, int gp) : base(hpMax, hpCur)
+        public Player(int hpMax, int hpCur, int lv, int xp, int gp) : base(hpMax)
         {
+            HpCur = hpCur;
             Level = lv;
             Xp = xp;
             Gold = gp;

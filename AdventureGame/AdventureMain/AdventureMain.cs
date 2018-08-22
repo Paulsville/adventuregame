@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using Engine;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace AdventureMain
 
             #region startup
 
-            //populate lists first thing
+            //populate lists first thing - prevents nullreferences
             World.WorldBuilder();
 
             //draw inventory pane
@@ -31,6 +32,13 @@ namespace AdventureMain
             InventoryView.Columns[2].Width = 180;
             InventoryView.Columns[3].Name = "ID";
             InventoryView.Columns[3].Visible = false;
+
+            //initialise minimap
+            MinimapGrid.ColumnCount = 3;
+            MinimapGrid.RowCount = 4;
+            MinimapGrid.Columns[0].Name = "1";
+            MinimapGrid.Columns[1].Name = "2";
+            MinimapGrid.Columns[2].Name = "3";
 
             //starting properties and equipment
             _player.PlayerLocation = ILocation.LocationID(0);
@@ -104,12 +112,27 @@ namespace AdventureMain
                         default:
                             break;
                     }
+
+                    if(!_player.PlayerLocation.Discovered)
+                    {
+                        _player.PlayerLocation.Discovered = true;
+                    }
+                    
+                    if(_player.PlayerLocation.MonsterHere != null)
+                    {
+                        _player.PlayerLocation.SpawnedMonster = new Monster(_player.PlayerLocation.MonsterHere);
+                        BtnInteract.Text = "Attack";
+                    }
+                    else
+                    {
+                        BtnInteract.Text = "";
+                    }
                     infoBox.Text = Utils.LocInfoWriter(_player);
                 }
                 else
                 {
                     infoBox.Text = "You can't run while fighting a monster!\n\n" + "You see a "
-                        + loc.MonsterHere.Name + " " + "(" + loc.MonsterHere.HpCur + "/" + loc.MonsterHere.HpMax + " HP).";
+                        + loc.MonsterHere.Name + " " + "(" + loc.SpawnedMonster.HpCur + "/" + loc.MonsterHere.HpMax + " HP).";
                 }
             }
             UpdateInventory();
@@ -120,11 +143,11 @@ namespace AdventureMain
         private void BtnInteract_Click(object sender, EventArgs e)
         {
             #region combat
-            if (_player.PlayerLocation.MonsterHere != null)
+            if (_player.PlayerLocation.SpawnedMonster != null)
             {
                 string playerDmgMess;
                 string monsterDmgMess;
-                Monster attacker = _player.PlayerLocation.MonsterHere;
+                Monster attacker = _player.PlayerLocation.SpawnedMonster;
                 if (attacker.HpCur > 0)
                 {
                     #region playerattack
@@ -170,15 +193,14 @@ namespace AdventureMain
                             if(lootRoll <= item.Chance)
                             {
                                 int itemQty = Utils.NumberBetween(item.QtyMin, item.QtyMax);
-                                _player.Inventory.Add(new InventoryItem(item.Item, itemQty));
-                                infoBox.Text += "\n\nYou receive item: " + item.Item.ItmName + " x" + itemQty;
+                                AddInventoryItem(item.Item, itemQty);
                             }
                         }
 
                         UpdateInventory();
                         CheckForLevelUp();
                         UpdatePlayerLabels();
-                        attacker.HpCur = 0;
+                        
 
                     }
                     #endregion
@@ -280,6 +302,21 @@ namespace AdventureMain
             lblLv.Text = _player.Level.ToString();
             lblXp.Text = _player.Xp.ToString() + " / " + _player.Level * 15;
             lblGp.Text = _player.Gold.ToString();
+        }
+
+        private void AddInventoryItem(IItem item, int qty)
+        {
+            if(_player.Inventory.FirstOrDefault(i => i.Itm == item) != null)
+            {
+                _player.Inventory.FirstOrDefault(i => i.Itm == item).ItmQty += qty;
+            }
+            else
+            {
+                _player.Inventory.Add(new InventoryItem(item, qty));
+            }
+            infoBox.Text += "\n\nYou receive item: " + item.ItmName + " x" + qty;
+            UpdateInventory();
+            
         }
     }
 }

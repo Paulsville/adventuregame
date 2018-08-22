@@ -12,12 +12,14 @@ namespace Engine
         public string Name { get; set; }
         public string Desc { get; set; }
         public INpc NpcHere { get; set; }
-        public Monster MonsterHere { get; set; }
+        public IMonster MonsterHere { get; set; }
+        public Monster SpawnedMonster { get; set; }
         public IItem ItemToEnter { get; set; }
         public ILocation LocToNorth { get; set; }
         public ILocation LocToEast { get; set; }
         public ILocation LocToSouth { get; set; }
         public ILocation LocToWest { get; set; }
+        public bool Discovered { get; set; }
 
         public ILocation(int id, string name, string desc, INpc npcHere = null, IMonster monsterHere = null)
         {
@@ -26,6 +28,7 @@ namespace Engine
             Desc = desc;
             NpcHere = npcHere;
             MonsterHere = monsterHere;
+            Discovered = false;
         }
 
         public static ILocation LocationID(int id)

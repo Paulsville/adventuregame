@@ -6,13 +6,29 @@ using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class Monster : IMonster
+    public class Monster
     {
+        public IMonster MonsterType { get; set; }
+        public string Name { get; set; }
         public int HpCur { get; set; }
+        public int DmgMin { get; }
+        public int DmgMax { get; }
+        public int XpReward { get; set; }
+        public int GoldReward { get; set; }
+        public List<LootItem> LootTable { get; }
 
-        public Monster(int id, string name, int hpMax, int dmgMin, int dmgMax, int xpReward, int goldReward) : base(id, name, hpMax, dmgMin, dmgMax, xpReward, goldReward)
+        public Monster(IMonster monsterType)
         {
-            HpCur = hpMax;
+            MonsterType = monsterType;
+
+            Name = monsterType.Name;
+            HpCur = monsterType.HpMax;
+            DmgMin = monsterType.DmgMin;
+            DmgMax = monsterType.DmgMax;
+            XpReward = monsterType.XpReward;
+            GoldReward = monsterType.GoldReward;
+            LootTable = monsterType.LootTable;
+
         }
     }
 }
