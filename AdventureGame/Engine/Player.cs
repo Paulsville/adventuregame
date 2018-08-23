@@ -26,6 +26,8 @@ namespace Engine
         public IWeapon Weapon { get; set; }
 
         public ILocation PlayerLocation { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
 
         public bool Combat { get; set; }
         public bool Dead { get; set; }

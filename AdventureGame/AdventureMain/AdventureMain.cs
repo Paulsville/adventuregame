@@ -46,12 +46,13 @@ namespace AdventureMain
 
 
             //starting properties and equipment
-            _player.PlayerLocation = ILocation.LocationID(0);
+            _player.PosX = 0;
+            _player.PosY = 0;
             _player.Weapon = (IWeapon)IItem.ItemID(0);
             _player.Inventory.Add(new InventoryItem(IItem.ItemID(10), 1));
 
             //refresh labels
-            UpdatePlayerLabels();
+            UpdatePlayerDetails();
             infoBox.Text = Utils.LocInfoWriter(_player);
             UpdateInventory();
             UpdateMinimap();
@@ -92,34 +93,40 @@ namespace AdventureMain
                     switch (dir)
                     {
                         case 'n':
-                            if (loc.LocToNorth != null)
+                            if (ListLocations.GetLocAt(_player.PosX + 1, _player.PosY) != null)
                             {
-                                _player.PlayerLocation = loc.LocToNorth;
+                                _player.PosX++;
                             }
+                            //_player.PlayerLocation = loc.LocToNorth;
                             break;
                         case 'e':
-                            if (loc.LocToEast != null)
+                            if (ListLocations.GetLocAt(_player.PosX, _player.PosY + 1) != null)
                             {
-                                _player.PlayerLocation = loc.LocToEast;
+                                _player.PosY++;
                             }
+                            //_player.PlayerLocation = loc.LocToEast;
                             break;
                         case 's':
-                            if (loc.LocToSouth != null)
+                            if (ListLocations.GetLocAt(_player.PosX - 1, _player.PosY) != null)
                             {
-                                _player.PlayerLocation = loc.LocToSouth;
+                                _player.PosX--;
                             }
+                            //_player.PlayerLocation = loc.LocToSouth;
                             break;
                         case 'w':
-                            if (loc.LocToWest != null)
+                            if (ListLocations.GetLocAt(_player.PosX, _player.PosY - 1) != null)
                             {
-                                _player.PlayerLocation = loc.LocToWest;
+                                _player.PosY--;
                             }
+                            //_player.PlayerLocation = loc.LocToWest;
                             break;
                         default:
                             break;
                     }
-                    
-                    if(_player.PlayerLocation.MonsterHere != null)
+
+                    _player.PlayerLocation = ListLocations.GetLocAt(_player.PosX, _player.PosY);
+
+                    if (_player.PlayerLocation.MonsterHere != null)
                     {
                         _player.PlayerLocation.SpawnedMonster = new Monster(_player.PlayerLocation.MonsterHere);
                         BtnInteract.Text = "Attack";
@@ -139,14 +146,31 @@ namespace AdventureMain
             UpdateInventory();
             _player.PlayerLocation.Revealed = true;
 
+            #region set adjacent locations to discovered
             try
             {
-                _player.PlayerLocation.LocToNorth.Discovered = true;
-                _player.PlayerLocation.LocToEast.Discovered = true;
-                _player.PlayerLocation.LocToSouth.Discovered = true;
-                _player.PlayerLocation.LocToWest.Discovered = true;
+                ListLocations.GetLocAt(_player.PosX, _player.PosY + 1).Discovered = true;
             }
             catch { }
+
+            try
+            {
+                ListLocations.GetLocAt(_player.PosX, _player.PosY - 1).Discovered = true;
+            }
+            catch { }
+
+            try
+            {
+                ListLocations.GetLocAt(_player.PosX + 1, _player.PosY).Discovered = true;
+            }
+            catch { }
+
+            try
+            {
+                ListLocations.GetLocAt(_player.PosX - 1, _player.PosY).Discovered = true;
+            }
+            catch { }
+            #endregion
 
             UpdateMinimap();
         }
@@ -212,7 +236,7 @@ namespace AdventureMain
 
                         UpdateInventory();
                         CheckForLevelUp();
-                        UpdatePlayerLabels();
+                        UpdatePlayerDetails();
                         
 
                     }
@@ -241,7 +265,7 @@ namespace AdventureMain
                             infoBox.Text += "\n\nYou are dead!";
                         }
 
-                        UpdatePlayerLabels();
+                        UpdatePlayerDetails();
 
                     }
                     #endregion
@@ -309,12 +333,13 @@ namespace AdventureMain
             }
         }
 
-        private void UpdatePlayerLabels()
+        private void UpdatePlayerDetails()
         {
             lblHp.Text = _player.HpCur.ToString() + " / " + _player.HpMax.ToString();
             lblLv.Text = _player.Level.ToString();
             lblXp.Text = _player.Xp.ToString() + " / " + _player.Level * 15;
             lblGp.Text = _player.Gold.ToString();
+            _player.PlayerLocation = ListLocations.LocList.FirstOrDefault(l => l.PosX == _player.PosX && l.PosY == _player.PosY);
         }
 
         private void AddInventoryItem(IItem item, int qty)
@@ -334,7 +359,51 @@ namespace AdventureMain
 
         private void UpdateMinimap()
         {
-            ILocation ploc = _player.PlayerLocation;
+            
+            for (int i = 0; i < MinimapGrid.Rows.Count; i++)
+            {
+                for (int j = 0; j < MinimapGrid.ColumnCount; j++)
+                {
+                    
+                    var checkCell = MinimapGrid.Rows[i].Cells[j];
+                    checkCell.Style.BackColor = System.Drawing.Color.White;
+                    checkCell.Value = "";
+                    ILocation loc = ListLocations.GetLocAt(_player.PosX - (i - 2), (j - 2) + _player.PosY);
+
+                    if(loc != null)
+                    {
+                        if (loc.Revealed)
+                        {
+                            checkCell.Value = loc.Name;
+                        }
+                        else
+                        {
+                            if (loc.Discovered)
+                            {
+                                checkCell.Value = "???";
+                                checkCell.Style.BackColor = System.Drawing.Color.White;
+                            }
+                            else
+                            {
+                                checkCell.Value = "";
+                                checkCell.Style.BackColor = System.Drawing.Color.Black;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        checkCell.Value = "";
+                        checkCell.Style.BackColor = System.Drawing.Color.Black;
+                    }
+                        
+                }
+            }
+            MinimapGrid.Rows[2].Cells[2].Value = _player.PlayerLocation.Name;
+            MinimapGrid.Rows[2].Cells[2].Selected = true;
+
+
+
+            /*ILocation ploc = _player.PlayerLocation;
 
             for (int i = 0; i < MinimapGrid.Rows.Count; i++)
             {
@@ -393,7 +462,7 @@ namespace AdventureMain
                     }
                 }
                 
-            }
+            }*/
 
 
 

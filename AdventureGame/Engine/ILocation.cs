@@ -15,10 +15,6 @@ namespace Engine
         public IMonster MonsterHere { get; set; }
         public Monster SpawnedMonster { get; set; }
         public IItem ItemToEnter { get; set; }
-        public ILocation LocToNorth { get; set; }
-        public ILocation LocToEast { get; set; }
-        public ILocation LocToSouth { get; set; }
-        public ILocation LocToWest { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
         public bool Discovered { get; set; }

@@ -218,6 +218,7 @@
             this.MinimapGrid.Name = "MinimapGrid";
             this.MinimapGrid.ReadOnly = true;
             this.MinimapGrid.RowHeadersVisible = false;
+            this.MinimapGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.MinimapGrid.Size = new System.Drawing.Size(375, 300);
             this.MinimapGrid.TabIndex = 19;
             // 

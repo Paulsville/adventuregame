@@ -26,13 +26,13 @@ namespace Engine
                 Revealed = true
             };
 
-            ILocation forest = new ILocation(LOCN_ID_FOREST, "Forest", "It's very quiet and shady.", 0, 1)
+            ILocation forest = new ILocation(LOCN_ID_FOREST, "Forest", "It's very quiet and shady.", 1, 0)
             {
                 MonsterHere = IMonster.MonsterID(2),
                 Discovered = true
             };
 
-            ILocation deepforest = new ILocation(LOCN_ID_DEEP_FOREST, "Deep Forest", "It's dark and damp this far into the woods.", 0, 2)
+            ILocation deepforest = new ILocation(LOCN_ID_DEEP_FOREST, "Deep Forest", "It's dark and damp this far into the woods.", 2, 0)
             {
                 MonsterHere = IMonster.MonsterID(1)
             };
@@ -42,38 +42,27 @@ namespace Engine
                 MonsterHere = IMonster.MonsterID(3)
             };
 
-            ILocation graveyard = new ILocation(LOCN_ID_GRAVEYARD, "Graveyard", "It's always eerie walking through a graveyard in the dark.", -1, 1)
+            ILocation graveyard = new ILocation(LOCN_ID_GRAVEYARD, "Graveyard", "It's always eerie walking through a graveyard in the dark.", 1, -1)
             {
                 MonsterHere = IMonster.MonsterID(0)
             };
 
-            ILocation cave = new ILocation(LOCN_ID_CAVE, "Cave", "The mouth of a cave. Looks like someone's been living in it.", 0, 3)
+            ILocation cave = new ILocation(LOCN_ID_CAVE, "Cave", "The mouth of a cave. Looks like someone's been living in it.", 3, 0)
             {
                 //NpcHere = null
             };
-
-            house.LocToNorth = forest;
-
-            forest.LocToNorth = deepforest;
-            forest.LocToEast = spidernest;
-            forest.LocToSouth = house;
-            forest.LocToWest = graveyard;
-
-            deepforest.LocToNorth = cave;
-            deepforest.LocToSouth = forest;
-
-            spidernest.LocToWest = forest;
-
-            graveyard.LocToEast = forest;
-
-            cave.LocToSouth = deepforest;
-
+            
             LocList.Add(house);
             LocList.Add(forest);
             LocList.Add(deepforest);
             LocList.Add(spidernest);
             LocList.Add(graveyard);
             LocList.Add(cave);
+        }
+
+        public static ILocation GetLocAt(int x, int y)
+        {
+            return LocList.FirstOrDefault(l => l.PosX == x && l.PosY == y);
         }
     }
 }
