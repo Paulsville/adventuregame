@@ -35,15 +35,15 @@ namespace AdventureMain
 
             //initialise minimap
             
-            MinimapGrid.ColumnCount = 3;
-            MinimapGrid.RowCount = 4;
-            MinimapGrid.Columns[0].Name = "1";
-            MinimapGrid.Columns[0].Width = 150;
-            MinimapGrid.Columns[1].Name = "2";
-            MinimapGrid.Columns[1].Width = 150;
-            MinimapGrid.Columns[2].Name = "3";
-            MinimapGrid.Columns[2].Width = 150;
-            
+            MinimapGrid.ColumnCount = 5;
+            MinimapGrid.RowCount = 5;
+            MinimapGrid.Columns[0].Width = 75;
+            MinimapGrid.Columns[1].Width = 75;
+            MinimapGrid.Columns[2].Width = 75;
+            MinimapGrid.Columns[3].Width = 75;
+            MinimapGrid.Columns[4].Width = 75;
+
+
 
             //starting properties and equipment
             _player.PlayerLocation = ILocation.LocationID(0);
@@ -334,22 +334,49 @@ namespace AdventureMain
 
         private void UpdateMinimap()
         {
-            foreach(ILocation loc in ListLocations.LocList)
+            ILocation ploc = _player.PlayerLocation;
+
+            for (int i = 0; i < MinimapGrid.Rows.Count; i++)
             {
-                if(loc.Revealed)
+                for (int j = 0; j < MinimapGrid.ColumnCount; j++)
                 {
-                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Value = loc.Name;
-                }
-                else if(loc.Discovered)
-                {
-                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Value = "???";
-                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Style.BackColor = System.Drawing.Color.White;
-                }
-                else
-                {
-                    MinimapGrid.Rows[loc.PosY - 1].Cells[loc.PosX - 1].Style.BackColor = System.Drawing.Color.Black;
+                    var checkCell = MinimapGrid.Rows[i].Cells[j];
+
+                    checkCell.Style.BackColor = System.Drawing.Color.White;
+                    checkCell.Value = null;
                 }
             }
+
+            MinimapGrid.Rows[2].Cells[2].Value = ploc.Name;
+            MinimapGrid.Rows[2].Cells[2].Selected = true;
+            try
+            {
+                MinimapGrid.Rows[1].Cells[2].Value = ploc.LocToNorth.Name;
+                MinimapGrid.Rows[0].Cells[2].Value = ploc.LocToNorth.LocToNorth.Name;
+            }
+            catch { }
+
+            try
+            {
+
+                MinimapGrid.Rows[2].Cells[3].Value = ploc.LocToEast.Name;
+                MinimapGrid.Rows[2].Cells[4].Value = ploc.LocToEast.LocToEast.Name;
+            }
+            catch { }
+
+            try
+            {
+                MinimapGrid.Rows[3].Cells[2].Value = ploc.LocToSouth.Name;
+                MinimapGrid.Rows[4].Cells[2].Value = ploc.LocToSouth.LocToSouth.Name;
+            }
+            catch { }
+
+            try
+            { 
+            MinimapGrid.Rows[2].Cells[1].Value = ploc.LocToWest.Name;
+                MinimapGrid.Rows[2].Cells[0].Value = ploc.LocToWest.LocToWest.Name;
+            }
+            catch { }
 
             for(int i = 0; i < MinimapGrid.Rows.Count; i++)
             {
@@ -360,11 +387,15 @@ namespace AdventureMain
                     {
                         checkCell.Style.BackColor = System.Drawing.Color.Black;
                     }
+                    else
+                    {
+                        checkCell.Style.BackColor = System.Drawing.Color.White;
+                    }
                 }
                 
             }
 
-            MinimapGrid.Rows[_player.PlayerLocation.PosY - 1].Cells[_player.PlayerLocation.PosX - 1].Selected = true;
+
 
         }
     }

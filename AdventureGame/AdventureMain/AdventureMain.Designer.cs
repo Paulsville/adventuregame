@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblHpStatic = new System.Windows.Forms.Label();
             this.lblHp = new System.Windows.Forms.Label();
             this.lblLvStatic = new System.Windows.Forms.Label();
@@ -202,6 +203,14 @@
             this.MinimapGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.MinimapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MinimapGrid.ColumnHeadersVisible = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MinimapGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.MinimapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MinimapGrid.Enabled = false;
             this.MinimapGrid.Location = new System.Drawing.Point(15, 245);
@@ -209,7 +218,7 @@
             this.MinimapGrid.Name = "MinimapGrid";
             this.MinimapGrid.ReadOnly = true;
             this.MinimapGrid.RowHeadersVisible = false;
-            this.MinimapGrid.Size = new System.Drawing.Size(450, 300);
+            this.MinimapGrid.Size = new System.Drawing.Size(375, 300);
             this.MinimapGrid.TabIndex = 19;
             // 
             // AdventureMain

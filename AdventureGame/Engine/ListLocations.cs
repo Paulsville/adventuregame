@@ -20,34 +20,34 @@ namespace Engine
 
         public static void PopulateLocList()
         {
-            ILocation house = new ILocation(LOCN_ID_HOUSE, "Your House", "This is your home.", 2, 4)
+            ILocation house = new ILocation(LOCN_ID_HOUSE, "Your House", "This is your home.", 0, 0)
             {
                 Discovered = true,
                 Revealed = true
             };
 
-            ILocation forest = new ILocation(LOCN_ID_FOREST, "Forest", "It's very quiet and shady.", 2, 3)
+            ILocation forest = new ILocation(LOCN_ID_FOREST, "Forest", "It's very quiet and shady.", 0, 1)
             {
                 MonsterHere = IMonster.MonsterID(2),
                 Discovered = true
             };
 
-            ILocation deepforest = new ILocation(LOCN_ID_DEEP_FOREST, "Deep Forest", "It's dark and damp this far into the woods.", 2, 2)
+            ILocation deepforest = new ILocation(LOCN_ID_DEEP_FOREST, "Deep Forest", "It's dark and damp this far into the woods.", 0, 2)
             {
                 MonsterHere = IMonster.MonsterID(1)
             };
 
-            ILocation spidernest = new ILocation(LOCN_ID_SPIDER_NEST, "Spider's Nest", "There are webs everywhere...", 3, 3)
+            ILocation spidernest = new ILocation(LOCN_ID_SPIDER_NEST, "Spider's Nest", "There are webs everywhere...", 1, 1)
             {
                 MonsterHere = IMonster.MonsterID(3)
             };
 
-            ILocation graveyard = new ILocation(LOCN_ID_GRAVEYARD, "Graveyard", "It's always eerie walking through a graveyard in the dark.", 1, 3)
+            ILocation graveyard = new ILocation(LOCN_ID_GRAVEYARD, "Graveyard", "It's always eerie walking through a graveyard in the dark.", -1, 1)
             {
                 MonsterHere = IMonster.MonsterID(0)
             };
 
-            ILocation cave = new ILocation(LOCN_ID_CAVE, "Cave", "The mouth of a cave. Looks like someone's been living in it.", 2, 1)
+            ILocation cave = new ILocation(LOCN_ID_CAVE, "Cave", "The mouth of a cave. Looks like someone's been living in it.", 0, 3)
             {
                 //NpcHere = null
             };
