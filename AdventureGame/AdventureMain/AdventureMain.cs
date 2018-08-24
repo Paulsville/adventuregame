@@ -10,8 +10,9 @@ namespace AdventureMain
     {
         Player _player = new Player(10, 10, 1, 0, 20)
         {
-            Inventory = new List<InventoryItem>(20)
-        };
+            Inventory = new List<InventoryItem>(20),
+            QuestLog = new List<Quest>(25)
+    };
 
         public AdventureMain()
         {
@@ -37,11 +38,12 @@ namespace AdventureMain
             
             MinimapGrid.ColumnCount = 5;
             MinimapGrid.RowCount = 5;
-            MinimapGrid.Columns[0].Width = 75;
-            MinimapGrid.Columns[1].Width = 75;
-            MinimapGrid.Columns[2].Width = 75;
-            MinimapGrid.Columns[3].Width = 75;
-            MinimapGrid.Columns[4].Width = 75;
+            MinimapGrid.RowTemplate.Height = 50;
+            MinimapGrid.Columns[0].Width = 70;
+            MinimapGrid.Columns[1].Width = 70;
+            MinimapGrid.Columns[2].Width = 70;
+            MinimapGrid.Columns[3].Width = 70;
+            MinimapGrid.Columns[4].Width = 70;
 
 
 
@@ -129,11 +131,6 @@ namespace AdventureMain
                     if (_player.PlayerLocation.MonsterHere != null)
                     {
                         _player.PlayerLocation.SpawnedMonster = new Monster(_player.PlayerLocation.MonsterHere);
-                        BtnInteract.Text = "Attack";
-                    }
-                    else
-                    {
-                        BtnInteract.Text = "";
                     }
                     infoBox.Text = Utils.LocInfoWriter(_player);
                 }
@@ -177,9 +174,8 @@ namespace AdventureMain
 
         #endregion
 
-        private void BtnInteract_Click(object sender, EventArgs e)
+        private void BtnAttack_Click(object sender, EventArgs e)
         {
-            #region combat
             if (_player.PlayerLocation.SpawnedMonster != null)
             {
                 string playerDmgMess;
@@ -276,7 +272,6 @@ namespace AdventureMain
                     infoBox.Text += "\n\nYou hit the dead " + attacker.Name + ". Was that really necessary?";
                 } 
             }
-            #endregion
         }
 
         private void InventoryView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -400,72 +395,29 @@ namespace AdventureMain
             }
             MinimapGrid.Rows[2].Cells[2].Value = _player.PlayerLocation.Name;
             MinimapGrid.Rows[2].Cells[2].Selected = true;
+        }
 
-
-
-            /*ILocation ploc = _player.PlayerLocation;
-
-            for (int i = 0; i < MinimapGrid.Rows.Count; i++)
+        private void BtnTalk_Click(object sender, EventArgs e)
+        {
+            if(_player.PlayerLocation.NpcHere != null)
             {
-                for (int j = 0; j < MinimapGrid.ColumnCount; j++)
-                {
-                    var checkCell = MinimapGrid.Rows[i].Cells[j];
 
-                    checkCell.Style.BackColor = System.Drawing.Color.White;
-                    checkCell.Value = null;
+            }
+            else if(_player.PlayerLocation.MonsterHere != null)
+            {
+                if(_player.Combat)
+                {
+                    infoBox.Text += "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " is too busy attacking you to talk!";
+                }
+                else
+                {
+                    infoBox.Text += "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " eyes you warily.";
                 }
             }
-
-            MinimapGrid.Rows[2].Cells[2].Value = ploc.Name;
-            MinimapGrid.Rows[2].Cells[2].Selected = true;
-            try
+            else
             {
-                MinimapGrid.Rows[1].Cells[2].Value = ploc.LocToNorth.Name;
-                MinimapGrid.Rows[0].Cells[2].Value = ploc.LocToNorth.LocToNorth.Name;
+                infoBox.Text += "\n\nThere's nobody here to talk to.";
             }
-            catch { }
-
-            try
-            {
-
-                MinimapGrid.Rows[2].Cells[3].Value = ploc.LocToEast.Name;
-                MinimapGrid.Rows[2].Cells[4].Value = ploc.LocToEast.LocToEast.Name;
-            }
-            catch { }
-
-            try
-            {
-                MinimapGrid.Rows[3].Cells[2].Value = ploc.LocToSouth.Name;
-                MinimapGrid.Rows[4].Cells[2].Value = ploc.LocToSouth.LocToSouth.Name;
-            }
-            catch { }
-
-            try
-            { 
-            MinimapGrid.Rows[2].Cells[1].Value = ploc.LocToWest.Name;
-                MinimapGrid.Rows[2].Cells[0].Value = ploc.LocToWest.LocToWest.Name;
-            }
-            catch { }
-
-            for(int i = 0; i < MinimapGrid.Rows.Count; i++)
-            {
-                for(int j = 0; j < MinimapGrid.ColumnCount; j++)
-                {
-                    var checkCell = MinimapGrid.Rows[i].Cells[j];
-                    if(checkCell.Value == null)
-                    {
-                        checkCell.Style.BackColor = System.Drawing.Color.Black;
-                    }
-                    else
-                    {
-                        checkCell.Style.BackColor = System.Drawing.Color.White;
-                    }
-                }
-                
-            }*/
-
-
-
         }
     }
 }

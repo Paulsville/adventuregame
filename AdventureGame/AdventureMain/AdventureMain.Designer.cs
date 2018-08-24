@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblHpStatic = new System.Windows.Forms.Label();
             this.lblHp = new System.Windows.Forms.Label();
@@ -41,18 +42,23 @@
             this.BtnMoveSouth = new System.Windows.Forms.Button();
             this.BtnMoveEast = new System.Windows.Forms.Button();
             this.BtnMoveWest = new System.Windows.Forms.Button();
-            this.BtnInteract = new System.Windows.Forms.Button();
+            this.BtnAttack = new System.Windows.Forms.Button();
             this.InventoryView = new System.Windows.Forms.DataGridView();
             this.infoBox = new System.Windows.Forms.RichTextBox();
             this.MinimapGrid = new System.Windows.Forms.DataGridView();
+            this.BtnTalk = new System.Windows.Forms.Button();
+            this.QuestView = new System.Windows.Forms.DataGridView();
+            this.worldBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimapGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QuestView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.worldBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHpStatic
             // 
             this.lblHpStatic.AutoSize = true;
-            this.lblHpStatic.Location = new System.Drawing.Point(12, 9);
+            this.lblHpStatic.Location = new System.Drawing.Point(15, 471);
             this.lblHpStatic.Name = "lblHpStatic";
             this.lblHpStatic.Size = new System.Drawing.Size(41, 13);
             this.lblHpStatic.TabIndex = 0;
@@ -61,7 +67,7 @@
             // lblHp
             // 
             this.lblHp.AutoSize = true;
-            this.lblHp.Location = new System.Drawing.Point(57, 9);
+            this.lblHp.Location = new System.Drawing.Point(60, 471);
             this.lblHp.Name = "lblHp";
             this.lblHp.Size = new System.Drawing.Size(0, 13);
             this.lblHp.TabIndex = 1;
@@ -69,7 +75,7 @@
             // lblLvStatic
             // 
             this.lblLvStatic.AutoSize = true;
-            this.lblLvStatic.Location = new System.Drawing.Point(12, 31);
+            this.lblLvStatic.Location = new System.Drawing.Point(15, 493);
             this.lblLvStatic.Name = "lblLvStatic";
             this.lblLvStatic.Size = new System.Drawing.Size(36, 13);
             this.lblLvStatic.TabIndex = 2;
@@ -78,7 +84,7 @@
             // lblXpStatic
             // 
             this.lblXpStatic.AutoSize = true;
-            this.lblXpStatic.Location = new System.Drawing.Point(12, 53);
+            this.lblXpStatic.Location = new System.Drawing.Point(15, 515);
             this.lblXpStatic.Name = "lblXpStatic";
             this.lblXpStatic.Size = new System.Drawing.Size(24, 13);
             this.lblXpStatic.TabIndex = 3;
@@ -87,7 +93,7 @@
             // lblGpStatic
             // 
             this.lblGpStatic.AutoSize = true;
-            this.lblGpStatic.Location = new System.Drawing.Point(12, 75);
+            this.lblGpStatic.Location = new System.Drawing.Point(15, 537);
             this.lblGpStatic.Name = "lblGpStatic";
             this.lblGpStatic.Size = new System.Drawing.Size(32, 13);
             this.lblGpStatic.TabIndex = 4;
@@ -96,7 +102,7 @@
             // lblLv
             // 
             this.lblLv.AutoSize = true;
-            this.lblLv.Location = new System.Drawing.Point(57, 31);
+            this.lblLv.Location = new System.Drawing.Point(60, 493);
             this.lblLv.Name = "lblLv";
             this.lblLv.Size = new System.Drawing.Size(0, 13);
             this.lblLv.TabIndex = 5;
@@ -104,7 +110,7 @@
             // lblXp
             // 
             this.lblXp.AutoSize = true;
-            this.lblXp.Location = new System.Drawing.Point(57, 53);
+            this.lblXp.Location = new System.Drawing.Point(60, 515);
             this.lblXp.Name = "lblXp";
             this.lblXp.Size = new System.Drawing.Size(0, 13);
             this.lblXp.TabIndex = 6;
@@ -112,14 +118,14 @@
             // lblGp
             // 
             this.lblGp.AutoSize = true;
-            this.lblGp.Location = new System.Drawing.Point(57, 75);
+            this.lblGp.Location = new System.Drawing.Point(60, 537);
             this.lblGp.Name = "lblGp";
             this.lblGp.Size = new System.Drawing.Size(0, 13);
             this.lblGp.TabIndex = 7;
             // 
             // BtnMoveNorth
             // 
-            this.BtnMoveNorth.Location = new System.Drawing.Point(570, 475);
+            this.BtnMoveNorth.Location = new System.Drawing.Point(205, 482);
             this.BtnMoveNorth.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMoveNorth.Name = "BtnMoveNorth";
             this.BtnMoveNorth.Size = new System.Drawing.Size(100, 35);
@@ -130,7 +136,7 @@
             // 
             // BtnMoveSouth
             // 
-            this.BtnMoveSouth.Location = new System.Drawing.Point(570, 510);
+            this.BtnMoveSouth.Location = new System.Drawing.Point(205, 517);
             this.BtnMoveSouth.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMoveSouth.Name = "BtnMoveSouth";
             this.BtnMoveSouth.Size = new System.Drawing.Size(100, 35);
@@ -141,7 +147,7 @@
             // 
             // BtnMoveEast
             // 
-            this.BtnMoveEast.Location = new System.Drawing.Point(670, 510);
+            this.BtnMoveEast.Location = new System.Drawing.Point(305, 517);
             this.BtnMoveEast.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMoveEast.Name = "BtnMoveEast";
             this.BtnMoveEast.Size = new System.Drawing.Size(100, 35);
@@ -152,7 +158,7 @@
             // 
             // BtnMoveWest
             // 
-            this.BtnMoveWest.Location = new System.Drawing.Point(470, 510);
+            this.BtnMoveWest.Location = new System.Drawing.Point(105, 517);
             this.BtnMoveWest.Margin = new System.Windows.Forms.Padding(0);
             this.BtnMoveWest.Name = "BtnMoveWest";
             this.BtnMoveWest.Size = new System.Drawing.Size(100, 35);
@@ -161,15 +167,16 @@
             this.BtnMoveWest.UseVisualStyleBackColor = true;
             this.BtnMoveWest.Click += new System.EventHandler(this.BtnMoveWest_Click);
             // 
-            // BtnInteract
+            // BtnAttack
             // 
-            this.BtnInteract.Location = new System.Drawing.Point(570, 440);
-            this.BtnInteract.Margin = new System.Windows.Forms.Padding(0);
-            this.BtnInteract.Name = "BtnInteract";
-            this.BtnInteract.Size = new System.Drawing.Size(100, 35);
-            this.BtnInteract.TabIndex = 14;
-            this.BtnInteract.UseVisualStyleBackColor = true;
-            this.BtnInteract.Click += new System.EventHandler(this.BtnInteract_Click);
+            this.BtnAttack.Location = new System.Drawing.Point(105, 482);
+            this.BtnAttack.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnAttack.Name = "BtnAttack";
+            this.BtnAttack.Size = new System.Drawing.Size(100, 35);
+            this.BtnAttack.TabIndex = 14;
+            this.BtnAttack.Text = "Attack";
+            this.BtnAttack.UseVisualStyleBackColor = true;
+            this.BtnAttack.Click += new System.EventHandler(this.BtnAttack_Click);
             // 
             // InventoryView
             // 
@@ -179,22 +186,22 @@
             this.InventoryView.AllowUserToResizeRows = false;
             this.InventoryView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.InventoryView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.InventoryView.Location = new System.Drawing.Point(470, 9);
+            this.InventoryView.Location = new System.Drawing.Point(422, 265);
             this.InventoryView.MultiSelect = false;
             this.InventoryView.Name = "InventoryView";
             this.InventoryView.ReadOnly = true;
             this.InventoryView.RowHeadersVisible = false;
             this.InventoryView.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.InventoryView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.InventoryView.Size = new System.Drawing.Size(300, 414);
+            this.InventoryView.Size = new System.Drawing.Size(350, 287);
             this.InventoryView.TabIndex = 17;
             this.InventoryView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InventoryView_CellClick);
             // 
             // infoBox
             // 
-            this.infoBox.Location = new System.Drawing.Point(126, 9);
+            this.infoBox.Location = new System.Drawing.Point(18, 9);
             this.infoBox.Name = "infoBox";
-            this.infoBox.Size = new System.Drawing.Size(338, 228);
+            this.infoBox.Size = new System.Drawing.Size(398, 250);
             this.infoBox.TabIndex = 18;
             this.infoBox.Text = "";
             // 
@@ -213,24 +220,55 @@
             this.MinimapGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.MinimapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MinimapGrid.Enabled = false;
-            this.MinimapGrid.Location = new System.Drawing.Point(15, 245);
+            this.MinimapGrid.Location = new System.Drawing.Point(422, 9);
             this.MinimapGrid.MultiSelect = false;
             this.MinimapGrid.Name = "MinimapGrid";
             this.MinimapGrid.ReadOnly = true;
             this.MinimapGrid.RowHeadersVisible = false;
+            this.MinimapGrid.RowTemplate.Height = 50;
             this.MinimapGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.MinimapGrid.Size = new System.Drawing.Size(375, 300);
+            this.MinimapGrid.Size = new System.Drawing.Size(350, 250);
             this.MinimapGrid.TabIndex = 19;
+            // 
+            // BtnTalk
+            // 
+            this.BtnTalk.Location = new System.Drawing.Point(305, 482);
+            this.BtnTalk.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnTalk.Name = "BtnTalk";
+            this.BtnTalk.Size = new System.Drawing.Size(100, 35);
+            this.BtnTalk.TabIndex = 20;
+            this.BtnTalk.Text = "Talk";
+            this.BtnTalk.UseVisualStyleBackColor = true;
+            this.BtnTalk.Click += new System.EventHandler(this.BtnTalk_Click);
+            // 
+            // QuestView
+            // 
+            this.QuestView.AllowUserToAddRows = false;
+            this.QuestView.AllowUserToDeleteRows = false;
+            this.QuestView.AutoGenerateColumns = false;
+            this.QuestView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.QuestView.DataSource = this.worldBindingSource;
+            this.QuestView.Location = new System.Drawing.Point(18, 266);
+            this.QuestView.Name = "QuestView";
+            this.QuestView.ReadOnly = true;
+            this.QuestView.Size = new System.Drawing.Size(398, 191);
+            this.QuestView.TabIndex = 21;
+            // 
+            // worldBindingSource
+            // 
+            this.worldBindingSource.DataSource = typeof(Engine.World);
             // 
             // AdventureMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.QuestView);
+            this.Controls.Add(this.BtnTalk);
             this.Controls.Add(this.MinimapGrid);
             this.Controls.Add(this.infoBox);
             this.Controls.Add(this.InventoryView);
-            this.Controls.Add(this.BtnInteract);
+            this.Controls.Add(this.BtnAttack);
             this.Controls.Add(this.BtnMoveWest);
             this.Controls.Add(this.BtnMoveEast);
             this.Controls.Add(this.BtnMoveSouth);
@@ -247,6 +285,8 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimapGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.QuestView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.worldBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -266,10 +306,13 @@
         private System.Windows.Forms.Button BtnMoveSouth;
         private System.Windows.Forms.Button BtnMoveEast;
         private System.Windows.Forms.Button BtnMoveWest;
-        private System.Windows.Forms.Button BtnInteract;
+        private System.Windows.Forms.Button BtnAttack;
         private System.Windows.Forms.DataGridView InventoryView;
         private System.Windows.Forms.RichTextBox infoBox;
         private System.Windows.Forms.DataGridView MinimapGrid;
+        private System.Windows.Forms.Button BtnTalk;
+        private System.Windows.Forms.DataGridView QuestView;
+        private System.Windows.Forms.BindingSource worldBindingSource;
     }
 }
 

@@ -65,6 +65,28 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Engine.IArmour.datasource" />
+    <None Include="Properties\DataSources\Engine.IConsumable.datasource" />
+    <None Include="Properties\DataSources\Engine.ICreature.datasource" />
+    <None Include="Properties\DataSources\Engine.IItem.datasource" />
+    <None Include="Properties\DataSources\Engine.ILocation.datasource" />
+    <None Include="Properties\DataSources\Engine.IMonster.datasource" />
+    <None Include="Properties\DataSources\Engine.INpc.datasource" />
+    <None Include="Properties\DataSources\Engine.InventoryItem.datasource" />
+    <None Include="Properties\DataSources\Engine.IQuest.datasource" />
+    <None Include="Properties\DataSources\Engine.IQuestItem.datasource" />
+    <None Include="Properties\DataSources\Engine.IWeapon.datasource" />
+    <None Include="Properties\DataSources\Engine.ListItems.datasource" />
+    <None Include="Properties\DataSources\Engine.ListLocations.datasource" />
+    <None Include="Properties\DataSources\Engine.ListMonsters.datasource" />
+    <None Include="Properties\DataSources\Engine.ListNpcs.datasource" />
+    <None Include="Properties\DataSources\Engine.ListQuests.datasource" />
+    <None Include="Properties\DataSources\Engine.LootItem.datasource" />
+    <None Include="Properties\DataSources\Engine.Monster.datasource" />
+    <None Include="Properties\DataSources\Engine.Player.datasource" />
+    <None Include="Properties\DataSources\Engine.Quest.datasource" />
+    <None Include="Properties\DataSources\Engine.Utils.datasource" />
+    <None Include="Properties\DataSources\Engine.World.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
