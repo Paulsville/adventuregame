@@ -11,9 +11,9 @@ namespace Engine
         public static void WorldBuilder()
         {
             ListItems.PopulateItemList();
-            ListNpcs.PopulateNpcList();
-            ListQuests.PopulateQuestList();
             ListMonsters.PopulateMonsterList();
+            ListQuests.PopulateQuestList();
+            ListNpcs.PopulateNpcList();
             ListLocations.PopulateLocList();
         }
     }

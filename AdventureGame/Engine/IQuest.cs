@@ -9,19 +9,19 @@ namespace Engine
     public class IQuest
     {
         int ID { get; set; }
-        string QuestName { get; set; }
-        string QuestDesc { get; set; }
-        int RewardXp { get; set; }
-        int RewardGold { get; set; }
-        IItem RewardItem { get; set; }
+        public string QuestName { get; set; }
+        public string QuestDesc { get; set; }
+        public string RewardDialogue { get; set; }
+        public int RewardXp { get; set; }
+        public int RewardGold { get; set; }
+        public InventoryItem RewardItem { get; set; }
         public IQuestItem ItemToComplete { get; set; }
         public IQuest QuestPreReq { get; set; }
 
-        public IQuest(int id, string questName, string questDesc, int rewardXp, int rewardGold)
+        public IQuest(int id, string questName, int rewardXp, int rewardGold)
         {
             ID = id;
             QuestName = questName;
-            QuestDesc = questDesc;
             RewardXp = rewardXp;
             RewardGold = rewardGold;
         }
@@ -37,6 +37,8 @@ namespace Engine
 
             return null;
         }
+
+        
 
     }
 }

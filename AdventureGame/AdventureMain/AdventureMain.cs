@@ -352,6 +352,21 @@ namespace AdventureMain
             
         }
 
+        private void AddInventoryItem(InventoryItem item)
+        {
+            if (_player.Inventory.FirstOrDefault(i => i == item) != null)
+            {
+                _player.Inventory.FirstOrDefault(i => i == item).ItmQty += item.ItmQty;
+            }
+            else
+            {
+                _player.Inventory.Add(item);
+            }
+            infoBox.Text += "\n\nYou receive item: " + item.Itm + " x" + item.ItmQty;
+            UpdateInventory();
+
+        }
+
         private void UpdateMinimap()
         {
             

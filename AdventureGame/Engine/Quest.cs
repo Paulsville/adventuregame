@@ -8,8 +8,8 @@ namespace Engine
 {
     public class Quest
     {
-        IQuest Details { get; set; }
-        bool Completed { get; set; }
+        public IQuest Details { get; set; }
+        public bool Completed { get; set; }
 
         public Quest(IQuest details, bool completed)
         {

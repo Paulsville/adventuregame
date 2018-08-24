@@ -8,9 +8,9 @@ namespace Engine
 {
     public class IQuestItem
     {
-        IItem Item { get; set; }
+        public IItem Item { get; set; }
         IQuest Quest { get; set; }
-        int ReqdQty { get; set; }
+        public int ReqdQty { get; set; }
 
         public IQuestItem(IItem item, int reqdQty)
         {
