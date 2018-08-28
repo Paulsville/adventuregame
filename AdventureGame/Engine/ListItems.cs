@@ -19,13 +19,15 @@ namespace Engine
         public const int ITEM_ID_BASIC_GLOVES = 5;
 
         //quest items
-        public const int ITEM_ID_RAT_TAIL = 6;
-        public const int ITEM_ID_WOLF_FUR = 7;
-        public const int ITEM_ID_SNAKE_SKIN = 8;
-        public const int ITEM_ID_SPIDER_FANGS = 9;
+        public const int ITEM_ID_RAT_TAIL = 100;
+        public const int ITEM_ID_WOLF_FUR = 101;
+        public const int ITEM_ID_SNAKE_SKIN = 102;
+        public const int ITEM_ID_SPIDER_FANGS = 103;
+        public const int ITEM_ID_MUSHROOM = 104;
+        public const int ITEM_ID_OLD_BOOT = 105;
 
         //health potions
-        public const int ITEM_ID_HEALTH_POTION = 10;
+        public const int ITEM_ID_HEALTH_POTION = 201;
 
         public static void PopulateItemList()
         {

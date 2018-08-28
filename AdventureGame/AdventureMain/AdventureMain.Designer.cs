@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblHpStatic = new System.Windows.Forms.Label();
             this.lblHp = new System.Windows.Forms.Label();
             this.lblLvStatic = new System.Windows.Forms.Label();
@@ -48,11 +47,9 @@
             this.MinimapGrid = new System.Windows.Forms.DataGridView();
             this.BtnTalk = new System.Windows.Forms.Button();
             this.QuestView = new System.Windows.Forms.DataGridView();
-            this.worldBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimapGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuestView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.worldBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHpStatic
@@ -201,7 +198,7 @@
             // 
             this.infoBox.Location = new System.Drawing.Point(18, 9);
             this.infoBox.Name = "infoBox";
-            this.infoBox.Size = new System.Drawing.Size(398, 250);
+            this.infoBox.Size = new System.Drawing.Size(400, 250);
             this.infoBox.TabIndex = 18;
             this.infoBox.Text = "";
             // 
@@ -210,14 +207,14 @@
             this.MinimapGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.MinimapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MinimapGrid.ColumnHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MinimapGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MinimapGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.MinimapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MinimapGrid.Enabled = false;
             this.MinimapGrid.Location = new System.Drawing.Point(422, 9);
@@ -245,18 +242,19 @@
             // 
             this.QuestView.AllowUserToAddRows = false;
             this.QuestView.AllowUserToDeleteRows = false;
-            this.QuestView.AutoGenerateColumns = false;
+            this.QuestView.AllowUserToResizeColumns = false;
+            this.QuestView.AllowUserToResizeRows = false;
             this.QuestView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.QuestView.DataSource = this.worldBindingSource;
+            this.QuestView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.QuestView.Location = new System.Drawing.Point(18, 266);
+            this.QuestView.MultiSelect = false;
             this.QuestView.Name = "QuestView";
             this.QuestView.ReadOnly = true;
-            this.QuestView.Size = new System.Drawing.Size(398, 191);
+            this.QuestView.RowHeadersVisible = false;
+            this.QuestView.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.QuestView.Size = new System.Drawing.Size(400, 191);
             this.QuestView.TabIndex = 21;
-            // 
-            // worldBindingSource
-            // 
-            this.worldBindingSource.DataSource = typeof(Engine.World);
+            this.QuestView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.QuestView_CellClick);
             // 
             // AdventureMain
             // 
@@ -286,7 +284,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimapGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuestView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.worldBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,7 +309,6 @@
         private System.Windows.Forms.DataGridView MinimapGrid;
         private System.Windows.Forms.Button BtnTalk;
         private System.Windows.Forms.DataGridView QuestView;
-        private System.Windows.Forms.BindingSource worldBindingSource;
     }
 }
 

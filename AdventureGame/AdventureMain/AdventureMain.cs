@@ -11,7 +11,7 @@ namespace AdventureMain
         Player _player = new Player(10, 10, 1, 0, 20)
         {
             Inventory = new List<InventoryItem>(20),
-            QuestLog = new List<Quest>(25)
+            QuestLog = new List<IQuest>(25)
     };
 
         public AdventureMain()
@@ -34,8 +34,19 @@ namespace AdventureMain
             InventoryView.Columns[3].Name = "ID";
             InventoryView.Columns[3].Visible = false;
 
+            //draw quest log
+            QuestView.ColumnCount = 4;
+            QuestView.Columns[0].Name = "Quest";
+            QuestView.Columns[0].Width = 100;
+            QuestView.Columns[1].Name = "Description";
+            QuestView.Columns[1].Width = 200;
+            QuestView.Columns[2].Name = "Progress";
+            QuestView.Columns[2].Width = 100;
+            QuestView.Columns[3].Name = "ID";
+            QuestView.Columns[3].Visible = false;
+
             //initialise minimap
-            
+
             MinimapGrid.ColumnCount = 5;
             MinimapGrid.RowCount = 5;
             MinimapGrid.RowTemplate.Height = 50;
@@ -51,7 +62,7 @@ namespace AdventureMain
             _player.PosX = 0;
             _player.PosY = 0;
             _player.Weapon = (IWeapon)IItem.ItemID(0);
-            _player.Inventory.Add(new InventoryItem(IItem.ItemID(10), 1));
+            _player.Inventory.Add(new InventoryItem(IItem.ItemID(201), 1));
 
             //refresh labels
             UpdatePlayerDetails();
@@ -176,102 +187,119 @@ namespace AdventureMain
 
         private void BtnAttack_Click(object sender, EventArgs e)
         {
-            if (_player.PlayerLocation.SpawnedMonster != null)
+            if(!_player.Dead)
             {
-                string playerDmgMess;
-                string monsterDmgMess;
-                Monster attacker = _player.PlayerLocation.SpawnedMonster;
-                if (attacker.HpCur > 0)
+                if (_player.PlayerLocation.SpawnedMonster != null)
                 {
-                    #region playerattack
-                    _player.Combat = true;
-                    int dmg;
-                    try
+                    string playerDmgMess;
+                    string monsterDmgMess;
+                    Monster attacker = _player.PlayerLocation.SpawnedMonster;
+                    if (attacker.HpCur > 0)
                     {
-                        dmg = Utils.NumberBetween(_player.Weapon.MinDmg, _player.Weapon.MaxDmg) + _player.DmgBonus;
-                        attacker.HpCur -= dmg;
-                    }
-                    catch
-                    {
-                        dmg = Utils.NumberBetween(0, 1);
-                        attacker.HpCur -= dmg;
-                    }
-                    if(dmg == 0)
-                    {
-                        playerDmgMess = "You miss the " + attacker.Name;
-                    }
-                    else
-                    {
-                        playerDmgMess = "You hit the " + attacker.Name + " for " + dmg + " damage.";
-                    }
-                    #endregion
-
-                    #region postcombat
-                    if(attacker.HpCur <= 0)
-                    {
-                        _player.Combat = false;
-                        monsterDmgMess = "The " + attacker.Name + " dies.";
-                        attacker.HpCur = -1;
-                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\n" + playerDmgMess;
-
-                        infoBox.Text += "\n\n" + monsterDmgMess;
-
-                        infoBox.Text += "You receive " + attacker.XpReward + " experience and find " + attacker.GoldReward + " gold.";
-                        _player.Gold += attacker.GoldReward;
-                        _player.Xp += attacker.XpReward;
-
-                        foreach (LootItem item in attacker.LootTable)
+                        #region playerattack
+                        _player.Combat = true;
+                        int dmg;
+                        try
                         {
-                            int lootRoll = Utils.NumberBetween(0, 100);
-                            if(lootRoll <= item.Chance)
-                            {
-                                int itemQty = Utils.NumberBetween(item.QtyMin, item.QtyMax);
-                                AddInventoryItem(item.Item, itemQty);
-                            }
+                            dmg = Utils.NumberBetween(_player.Weapon.MinDmg, _player.Weapon.MaxDmg) + _player.DmgBonus;
+                            attacker.HpCur -= dmg;
                         }
-
-                        UpdateInventory();
-                        CheckForLevelUp();
-                        UpdatePlayerDetails();
-                        
-
-                    }
-                    #endregion
-
-                    #region monsterattack
-                    else
-                    {
-                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\n" + playerDmgMess;
-                        int monsterDmg = Utils.NumberBetween(attacker.DmgMin, attacker.DmgMax);
-                        _player.HpCur = _player.HpCur - monsterDmg;
-                        if (monsterDmg == 0)
+                        catch
                         {
-                            monsterDmgMess = "The " + attacker.Name + " misses you.";
+                            dmg = Utils.NumberBetween(0, 1);
+                            attacker.HpCur -= dmg;
+                        }
+                        if (dmg == 0)
+                        {
+                            playerDmgMess = "You miss the " + attacker.Name;
                         }
                         else
                         {
-                            monsterDmgMess = attacker.Name + " hits you for " + monsterDmg + " damage.";
+                            playerDmgMess = "You hit the " + attacker.Name + " for " + dmg + " damage.";
                         }
-                        infoBox.Text += "\n\n" + monsterDmgMess;
+                        #endregion
 
-                        if (_player.HpCur <= 0)
+                        #region postcombat
+                        if (attacker.HpCur <= 0)
                         {
-                            _player.Dead = true;
-                            _player.HpCur = 0;
-                            infoBox.Text += "\n\nYou are dead!";
+                            _player.Combat = false;
+                            monsterDmgMess = "The " + attacker.Name + " dies.";
+                            attacker.HpCur = -1;
+                            infoBox.Text = Utils.LocInfoWriter(_player) + "\n\n" + playerDmgMess;
+
+                            infoBox.Text += "\n\n" + monsterDmgMess;
+
+                            if (attacker.GoldReward > 0)
+                            {
+                                infoBox.Text += "You receive " + attacker.XpReward + " experience and find " + attacker.GoldReward + " gold.";
+                                _player.Gold += attacker.GoldReward;
+                            }
+                            else
+                            {
+                                infoBox.Text += "You receive " + attacker.XpReward + " experience.";
+                            }
+
+
+                            _player.Xp += attacker.XpReward;
+
+                            foreach (LootItem item in attacker.LootTable)
+                            {
+                                int lootRoll = Utils.NumberBetween(0, 100);
+                                if (lootRoll <= item.Chance)
+                                {
+                                    int itemQty = Utils.NumberBetween(item.QtyMin, item.QtyMax);
+                                    AddInventoryItem(item.Item, itemQty);
+                                }
+                            }
+
+                            UpdateInventory();
+                            CheckForLevelUp();
+                            UpdatePlayerDetails();
+
+
                         }
+                        #endregion
 
-                        UpdatePlayerDetails();
+                        #region monsterattack
+                        else
+                        {
+                            infoBox.Text = Utils.LocInfoWriter(_player) + "\n\n" + playerDmgMess;
+                            int monsterDmg = Utils.NumberBetween(attacker.DmgMin, attacker.DmgMax);
+                            _player.HpCur = _player.HpCur - monsterDmg;
+                            if (monsterDmg == 0)
+                            {
+                                monsterDmgMess = "The " + attacker.Name + " misses you.";
+                            }
+                            else
+                            {
+                                monsterDmgMess = attacker.Name + " hits you for " + monsterDmg + " damage.";
+                            }
+                            infoBox.Text += "\n\n" + monsterDmgMess;
 
+                            if (_player.HpCur <= 0)
+                            {
+                                _player.Dead = true;
+                                _player.HpCur = 0;
+                                infoBox.Text += "\n\nYou are dead!";
+                            }
+
+                            UpdatePlayerDetails();
+
+                        }
+                        #endregion
                     }
-                    #endregion
-                }
 
+                    else
+                    {
+                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nYou hit the dead " + attacker.Name + ". Was that really necessary?";
+                    }
+                }
                 else
                 {
-                    infoBox.Text += "\n\nYou hit the dead " + attacker.Name + ". Was that really necessary?";
-                } 
+                    infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nYou wave your sword around a bit. Swish swish.";
+                }
             }
+            
         }
 
         private void InventoryView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -305,6 +333,11 @@ namespace AdventureMain
             #endregion
 
         }
+
+        private void QuestView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
         
         private void UpdateInventory()
         {
@@ -312,6 +345,57 @@ namespace AdventureMain
             foreach(InventoryItem item in _player.Inventory)
             {
                 InventoryView.Rows.Add(new[] { item.Itm.ItmName, item.ItmQty.ToString(), item.Itm.ItmDesc, _player.Inventory.IndexOf(item).ToString()});
+            }
+            UpdateQuests();
+        }
+
+        private void UpdateQuests()
+        {
+            QuestView.Rows.Clear();
+            foreach(IQuest q in _player.QuestLog)
+            {
+                IItem reqdItm = q.ItemToComplete.Item;
+                string playerQty;
+                try
+                {
+                    playerQty = _player.Inventory.FirstOrDefault(i => i.Itm == reqdItm).ItmQty.ToString();
+                }
+                catch
+                {
+                    playerQty = "0";
+                }
+
+                int reqdQty = q.ItemToComplete.ReqdQty;
+                QuestView.Rows.Add(new[] { q.QuestName, q.QuestDesc, q.ItemToComplete.Item.ItmName.ToString() + " " + playerQty + " / " + reqdQty, q.ID.ToString() });
+            }
+
+            for (int i = 0; i < QuestView.RowCount; i++)
+            {
+                IQuest q = IQuest.QuestID(Int32.Parse(QuestView.Rows[i].Cells[3].Value.ToString()));
+                if (_player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item) != null)
+                {
+                    InventoryItem qItm = _player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item);
+                    if (qItm.ItmQty >= q.ItemToComplete.ReqdQty)
+                    {
+                        try
+                        {
+                            if (_player.PlayerLocation.NpcHere.GiveQuests.Contains(q))
+                            {
+                                QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+                            }
+                            else
+                            {
+                                QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                            }
+                        }
+                        catch
+                        {
+                            QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                        }
+                        
+                    }
+
+                }
             }
         }
 
@@ -324,7 +408,7 @@ namespace AdventureMain
                 _player.DmgBonus++;
                 _player.HpCur = _player.HpMax;
                 infoBox.Text += "\n\nYou have reached level " + _player.Level.ToString() 
-                    + "!\n\nYour maximum health has increased by 3.\n\nYour damage has increased by 1.";
+                    + "!\n\nYour maximum health has increased by 3.\n\nYour bonus damage has increased by 1.";
             }
         }
 
@@ -350,6 +434,21 @@ namespace AdventureMain
             infoBox.Text += "\n\nYou receive item: " + item.ItmName + " x" + qty;
             UpdateInventory();
             
+        }
+
+        private void AddInventoryItem(InventoryItem item)
+        {
+            if (_player.Inventory.FirstOrDefault(i => i == item) != null)
+            {
+                _player.Inventory.FirstOrDefault(i => i == item).ItmQty += item.ItmQty;
+            }
+            else
+            {
+                _player.Inventory.Add(item);
+            }
+            infoBox.Text += "\n\nYou receive item: " + item.Itm + " x" + item.ItmQty;
+            UpdateInventory();
+
         }
 
         private void UpdateMinimap()
@@ -401,22 +500,60 @@ namespace AdventureMain
         {
             if(_player.PlayerLocation.NpcHere != null)
             {
+                INpc npc = _player.PlayerLocation.NpcHere;
+                if(npc.GiveQuests.First() == null)
+                {
+                    infoBox.Text = Utils.DialogueWriter(_player);
+                }
+                else
+                {
+                    IQuest q = npc.GiveQuests.First();
+                    if (q.QuestPreReq != null)
+                    {
+                        if (_player.QuestLog.Contains(q.QuestPreReq))
+                        {
+                            int i = _player.QuestLog.IndexOf(q.QuestPreReq);
+                            if(_player.QuestLog[i].Completed == true)
+                            {
+                                _player.QuestLog.Add(q);
+                                infoBox.Text = q.QuestDialogue;
+                            }
+                            else
+                            {
+                                infoBox.Text = Utils.DialogueWriter(_player);
+                            }
+                        }
+                        else
+                        {
+                            infoBox.Text = Utils.DialogueWriter(_player);
+                        }
+                    }
+                    else
+                    {
+                        _player.QuestLog.Add(q);
+                        infoBox.Text = q.QuestDialogue;
+                    }
+                }
 
+                UpdateQuests();
             }
             else if(_player.PlayerLocation.MonsterHere != null)
             {
                 if(_player.Combat)
                 {
-                    infoBox.Text += "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " is too busy attacking you to talk!";
+                    infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " is too busy attacking you to talk!";
                 }
                 else
                 {
-                    infoBox.Text += "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " eyes you warily.";
+                    if(_player.PlayerLocation.SpawnedMonster.HpCur == 0)
+                    {
+                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " eyes you warily.";
+                    }   
                 }
             }
             else
             {
-                infoBox.Text += "\n\nThere's nobody here to talk to.";
+                infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThere's nobody here to talk to.";
             }
         }
     }

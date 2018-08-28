@@ -15,7 +15,7 @@ namespace Engine
         public const int LOCN_ID_DEEP_FOREST = 2;
         public const int LOCN_ID_SPIDER_NEST = 3;
         public const int LOCN_ID_GRAVEYARD = 4;
-        public const int LOCN_ID_CAVE = 5;
+        public const int LOCN_ID_ALCHEMIST_HOUSE = 5;
         public const int LOCN_ID_NOWHERE = 6;
 
         public static void PopulateLocList()
@@ -47,9 +47,9 @@ namespace Engine
                 MonsterHere = IMonster.MonsterID(0)
             };
 
-            ILocation cave = new ILocation(LOCN_ID_CAVE, "Cave", "The mouth of a cave. Looks like someone's been living in it.", 3, 0)
+            ILocation cave = new ILocation(LOCN_ID_ALCHEMIST_HOUSE, "Hut", "There is a sign outside that says \"Fizzlebrew Alchemy\". Blue smoke is coming out of the chimney.", 3, 0)
             {
-                //NpcHere = null
+                NpcHere = INpc.NpcID(0)
             };
             
             LocList.Add(house);

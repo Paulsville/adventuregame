@@ -78,6 +78,10 @@ namespace Engine
             return locHeader + "\n\n" + locDesc + "\n\n" + monster;
         }
 
-        
+        public static string DialogueWriter(Player player)
+        {
+            INpc npc = player.PlayerLocation.NpcHere;
+            return "You greet " + npc.Name + ".\n\n\"" + npc.Greetings + "\"";
+        }
     }
 }

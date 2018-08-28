@@ -15,7 +15,7 @@ namespace Engine
         public int HpCur { get; set; }
 
         public List<InventoryItem> Inventory { get; set; }
-        public List<Quest> QuestLog { get; set; }
+        public List<IQuest> QuestLog { get; set; }
 
         public IArmour HeadSlot { get; set; }
         public IArmour ChestSlot { get; set; }
