@@ -63,6 +63,7 @@ namespace AdventureMain
             _player.PosY = 0;
             _player.Weapon = (IWeapon)IItem.ItemID(0);
             _player.Inventory.Add(new InventoryItem(IItem.ItemID(201), 1));
+            _player.Inventory.Add(new InventoryItem(IItem.ItemID(100), 5));
 
             //refresh labels
             UpdatePlayerDetails();
@@ -110,28 +111,24 @@ namespace AdventureMain
                             {
                                 _player.PosX++;
                             }
-                            //_player.PlayerLocation = loc.LocToNorth;
                             break;
                         case 'e':
                             if (ListLocations.GetLocAt(_player.PosX, _player.PosY + 1) != null)
                             {
                                 _player.PosY++;
                             }
-                            //_player.PlayerLocation = loc.LocToEast;
                             break;
                         case 's':
                             if (ListLocations.GetLocAt(_player.PosX - 1, _player.PosY) != null)
                             {
                                 _player.PosX--;
                             }
-                            //_player.PlayerLocation = loc.LocToSouth;
                             break;
                         case 'w':
                             if (ListLocations.GetLocAt(_player.PosX, _player.PosY - 1) != null)
                             {
                                 _player.PosY--;
                             }
-                            //_player.PlayerLocation = loc.LocToWest;
                             break;
                         default:
                             break;
@@ -302,6 +299,75 @@ namespace AdventureMain
             
         }
 
+        private void BtnTalk_Click(object sender, EventArgs e)
+        {
+            if (_player.PlayerLocation.NpcHere != null)
+            {
+                INpc npc = _player.PlayerLocation.NpcHere;
+                if (npc.GiveQuests.First() == null)
+                {
+                    infoBox.Text = "\"" + Utils.DialogueWriter(_player) + "\"";
+                }
+                else
+                {
+                    IQuest q = npc.GiveQuests.First();
+                    if (q.QuestPreReq != null)
+                    {
+                        if (_player.QuestLog.Contains(q.QuestPreReq))
+                        {
+                            int i = _player.QuestLog.IndexOf(q.QuestPreReq);
+                            if (_player.QuestLog[i].Completed == true)
+                            {
+                                _player.QuestLog.Add(q);
+                                infoBox.Text = "Quest Accepted: " + q.QuestName + "\n\n\"" + q.QuestDialogue + "\"";
+                            }
+                            else
+                            {
+                                infoBox.Text = "\"" + Utils.DialogueWriter(_player) + "\"";
+                            }
+                        }
+                        else
+                        {
+                            infoBox.Text = "\"" + Utils.DialogueWriter(_player) + "\"";
+                        }
+                    }
+                    else
+                    {
+                        _player.QuestLog.Add(q);
+                        infoBox.Text = "Quest Accepted: " + q.QuestName + "\n\n\"" + q.QuestDialogue + "\"";
+                    }
+                }
+
+                UpdateQuests();
+            }
+            else if (_player.PlayerLocation.MonsterHere != null)
+            {
+                if (_player.Combat)
+                {
+                    infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " is too busy attacking you to talk!";
+                }
+                else
+                {
+                    if (_player.PlayerLocation.SpawnedMonster.HpCur == 0)
+                    {
+                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " eyes you warily.";
+                    }
+                }
+            }
+            else
+            {
+                infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThere's nobody here to talk to.";
+            }
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            if(_player.PlayerLocation.ItemHere != null)
+            {
+                AddInventoryItem(_player.PlayerLocation.ItemHere);
+            }
+        }
+
         private void InventoryView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int inventoryItemID = int.Parse(InventoryView.Rows[e.RowIndex].Cells[3].Value.ToString());
@@ -336,7 +402,57 @@ namespace AdventureMain
 
         private void QuestView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            int i = e.RowIndex;
+            IQuest q = IQuest.QuestID(Int32.Parse(QuestView.Rows[i].Cells[3].Value.ToString()));
+            if (_player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item) != null)
+            {
+                InventoryItem qItm = _player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item);
+                if (qItm.ItmQty >= q.ItemToComplete.ReqdQty)
+                {
+                    try
+                    {
+                        if (_player.PlayerLocation.NpcHere.GiveQuests.Contains(q))
+                        {
+                            if(qItm.ItmQty > q.ItemToComplete.ReqdQty)
+                            {
+                                _player.Inventory[_player.Inventory.IndexOf(qItm)].ItmQty -= q.ItemToComplete.ReqdQty;
+                            }
+                            else
+                            {
+                                _player.Inventory.Remove(qItm);
+                            }
+                            UpdateInventory();
 
+                            
+                            _player.Xp += q.RewardXp;
+
+                            if(q.RewardGold > 0)
+                            {
+                                _player.Gold += q.RewardGold;
+                                infoBox.Text = "Quest Completed: " + q.QuestName + "\n\n\"" + q.RewardDialogue + "\"\n\nYou receive " + q.RewardXp
+                                    + " experience and " + q.RewardGold + " gold.";
+                            }
+                            else
+                            {
+                                infoBox.Text = "Quest Completed: " + q.QuestName + "\n\n\"" + q.RewardDialogue + "\"\n\nYou receive " + q.RewardXp
+                                    + " experience.";
+                            }
+                           
+
+                            int questIndex = _player.QuestLog.IndexOf(q);
+
+                            _player.QuestLog[questIndex].Completed = true;
+
+                            _player.PlayerLocation.NpcHere.GiveQuests.Remove(q);
+
+                            UpdateQuests();
+                        }
+                    }
+                    catch { }
+
+                }
+
+            }
         }
         
         private void UpdateInventory()
@@ -354,48 +470,56 @@ namespace AdventureMain
             QuestView.Rows.Clear();
             foreach(IQuest q in _player.QuestLog)
             {
-                IItem reqdItm = q.ItemToComplete.Item;
-                string playerQty;
-                try
+                if(!q.Completed)
                 {
-                    playerQty = _player.Inventory.FirstOrDefault(i => i.Itm == reqdItm).ItmQty.ToString();
-                }
-                catch
-                {
-                    playerQty = "0";
-                }
+                    IItem reqdItm = q.ItemToComplete.Item;
+                    string playerQty;
+                    try
+                    {
+                        playerQty = _player.Inventory.FirstOrDefault(i => i.Itm == reqdItm).ItmQty.ToString();
+                    }
+                    catch
+                    {
+                        playerQty = "0";
+                    }
 
-                int reqdQty = q.ItemToComplete.ReqdQty;
-                QuestView.Rows.Add(new[] { q.QuestName, q.QuestDesc, q.ItemToComplete.Item.ItmName.ToString() + " " + playerQty + " / " + reqdQty, q.ID.ToString() });
+                    int reqdQty = q.ItemToComplete.ReqdQty;
+                    QuestView.Rows.Add(new[] { q.QuestName, q.QuestDesc, q.ItemToComplete.Item.ItmName.ToString() + " " + playerQty + " / " + reqdQty, q.ID.ToString() });
+                }
+                
             }
 
             for (int i = 0; i < QuestView.RowCount; i++)
             {
                 IQuest q = IQuest.QuestID(Int32.Parse(QuestView.Rows[i].Cells[3].Value.ToString()));
-                if (_player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item) != null)
-                {
-                    InventoryItem qItm = _player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item);
-                    if (qItm.ItmQty >= q.ItemToComplete.ReqdQty)
+                int qIndex = _player.QuestLog.IndexOf(q);
+
+                    if (_player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item) != null)
                     {
-                        try
+                        InventoryItem qItm = _player.Inventory.FirstOrDefault(itm => itm.Itm == q.ItemToComplete.Item);
+                        if (qItm.ItmQty >= q.ItemToComplete.ReqdQty)
                         {
-                            if (_player.PlayerLocation.NpcHere.GiveQuests.Contains(q))
+                            try
                             {
-                                QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+                                if (_player.PlayerLocation.NpcHere.GiveQuests.Contains(q))
+                                {
+                                    QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Green;
+                                }
+                                else
+                                {
+                                    QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+                                }
                             }
-                            else
+                            catch
                             {
                                 QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
                             }
-                        }
-                        catch
-                        {
-                            QuestView.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
-                        }
-                        
-                    }
 
-                }
+                        }
+
+                    }
+                
+                
             }
         }
 
@@ -496,65 +620,6 @@ namespace AdventureMain
             MinimapGrid.Rows[2].Cells[2].Selected = true;
         }
 
-        private void BtnTalk_Click(object sender, EventArgs e)
-        {
-            if(_player.PlayerLocation.NpcHere != null)
-            {
-                INpc npc = _player.PlayerLocation.NpcHere;
-                if(npc.GiveQuests.First() == null)
-                {
-                    infoBox.Text = Utils.DialogueWriter(_player);
-                }
-                else
-                {
-                    IQuest q = npc.GiveQuests.First();
-                    if (q.QuestPreReq != null)
-                    {
-                        if (_player.QuestLog.Contains(q.QuestPreReq))
-                        {
-                            int i = _player.QuestLog.IndexOf(q.QuestPreReq);
-                            if(_player.QuestLog[i].Completed == true)
-                            {
-                                _player.QuestLog.Add(q);
-                                infoBox.Text = q.QuestDialogue;
-                            }
-                            else
-                            {
-                                infoBox.Text = Utils.DialogueWriter(_player);
-                            }
-                        }
-                        else
-                        {
-                            infoBox.Text = Utils.DialogueWriter(_player);
-                        }
-                    }
-                    else
-                    {
-                        _player.QuestLog.Add(q);
-                        infoBox.Text = q.QuestDialogue;
-                    }
-                }
-
-                UpdateQuests();
-            }
-            else if(_player.PlayerLocation.MonsterHere != null)
-            {
-                if(_player.Combat)
-                {
-                    infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " is too busy attacking you to talk!";
-                }
-                else
-                {
-                    if(_player.PlayerLocation.SpawnedMonster.HpCur == 0)
-                    {
-                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThe " + _player.PlayerLocation.MonsterHere.Name + " eyes you warily.";
-                    }   
-                }
-            }
-            else
-            {
-                infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nThere's nobody here to talk to.";
-            }
-        }
+        
     }
 }

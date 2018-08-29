@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblHpStatic = new System.Windows.Forms.Label();
             this.lblHp = new System.Windows.Forms.Label();
             this.lblLvStatic = new System.Windows.Forms.Label();
@@ -47,6 +47,7 @@
             this.MinimapGrid = new System.Windows.Forms.DataGridView();
             this.BtnTalk = new System.Windows.Forms.Button();
             this.QuestView = new System.Windows.Forms.DataGridView();
+            this.BtnSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.InventoryView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinimapGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.QuestView)).BeginInit();
@@ -166,7 +167,7 @@
             // 
             // BtnAttack
             // 
-            this.BtnAttack.Location = new System.Drawing.Point(105, 482);
+            this.BtnAttack.Location = new System.Drawing.Point(494, 482);
             this.BtnAttack.Margin = new System.Windows.Forms.Padding(0);
             this.BtnAttack.Name = "BtnAttack";
             this.BtnAttack.Size = new System.Drawing.Size(100, 35);
@@ -190,7 +191,7 @@
             this.InventoryView.RowHeadersVisible = false;
             this.InventoryView.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.InventoryView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.InventoryView.Size = new System.Drawing.Size(350, 287);
+            this.InventoryView.Size = new System.Drawing.Size(350, 192);
             this.InventoryView.TabIndex = 17;
             this.InventoryView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.InventoryView_CellClick);
             // 
@@ -207,14 +208,14 @@
             this.MinimapGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.MinimapGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MinimapGrid.ColumnHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MinimapGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MinimapGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.MinimapGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MinimapGrid.Enabled = false;
             this.MinimapGrid.Location = new System.Drawing.Point(422, 9);
@@ -229,7 +230,7 @@
             // 
             // BtnTalk
             // 
-            this.BtnTalk.Location = new System.Drawing.Point(305, 482);
+            this.BtnTalk.Location = new System.Drawing.Point(594, 482);
             this.BtnTalk.Margin = new System.Windows.Forms.Padding(0);
             this.BtnTalk.Name = "BtnTalk";
             this.BtnTalk.Size = new System.Drawing.Size(100, 35);
@@ -256,11 +257,23 @@
             this.QuestView.TabIndex = 21;
             this.QuestView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.QuestView_CellClick);
             // 
+            // BtnSearch
+            // 
+            this.BtnSearch.Location = new System.Drawing.Point(494, 517);
+            this.BtnSearch.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnSearch.Name = "BtnSearch";
+            this.BtnSearch.Size = new System.Drawing.Size(100, 35);
+            this.BtnSearch.TabIndex = 22;
+            this.BtnSearch.Text = "Search";
+            this.BtnSearch.UseVisualStyleBackColor = true;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
+            // 
             // AdventureMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.BtnSearch);
             this.Controls.Add(this.QuestView);
             this.Controls.Add(this.BtnTalk);
             this.Controls.Add(this.MinimapGrid);
@@ -309,6 +322,7 @@
         private System.Windows.Forms.DataGridView MinimapGrid;
         private System.Windows.Forms.Button BtnTalk;
         private System.Windows.Forms.DataGridView QuestView;
+        private System.Windows.Forms.Button BtnSearch;
     }
 }
 

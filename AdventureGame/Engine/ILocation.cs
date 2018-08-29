@@ -14,12 +14,13 @@ namespace Engine
         public INpc NpcHere { get; set; }
         public IMonster MonsterHere { get; set; }
         public Monster SpawnedMonster { get; set; }
+        public InventoryItem ItemHere { get; set; }
         public IItem ItemToEnter { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
         public bool Discovered { get; set; }
         public bool Revealed { get; set; }
-
+        
         public ILocation(int id, string name, string desc, int posX, int posY, INpc npcHere = null, IMonster monsterHere = null)
         {
             ID = id;
