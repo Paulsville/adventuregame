@@ -32,8 +32,5 @@ namespace Engine
         {
             return ListQuests.QuestList.FirstOrDefault(q => q.ID == id);
         }
-
-        
-
     }
 }

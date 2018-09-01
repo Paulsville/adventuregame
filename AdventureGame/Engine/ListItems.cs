@@ -31,7 +31,7 @@ namespace Engine
 
         public static void PopulateItemList()
         {
-            ItemList.Add(new IWeapon(ITEM_ID_BASIC_SWORD, "Training Sword", "A simple iron sword.", 0, 1, 2));
+            ItemList.Add(new IWeapon(ITEM_ID_BASIC_SWORD, "Training Sword", "A simple iron sword.", 0, 20, 20));
             ItemList.Add(new IArmour(ITEM_ID_BASIC_HAT, "Cloth Cap", "A soft cloth hat.", 0));
             ItemList.Add(new IArmour(ITEM_ID_BASIC_SHIRT, "Linen Shirt", "Comfortable, but not very strong.", 0));
             ItemList.Add(new IArmour(ITEM_ID_BASIC_LEGGINGS, "Cloth Leggings", "They're slightly ripped at the bottoms.", 0));
@@ -42,6 +42,8 @@ namespace Engine
             ItemList.Add(new IItem(ITEM_ID_WOLF_FUR, "Wolf Fur", "Fur skinned from a wolf."));
             ItemList.Add(new IItem(ITEM_ID_SNAKE_SKIN, "Snake Skin", "Shed from an adder."));
             ItemList.Add(new IItem(ITEM_ID_SPIDER_FANGS, "Spider Fangs", "Pointy and probably venomous."));
+            ItemList.Add(new IItem(ITEM_ID_MUSHROOM, "Big Mushroom", "Would be good fried with garlic!"));
+            ItemList.Add(new IItem(ITEM_ID_OLD_BOOT, "Chewed Boot", "A chewed up leather boot. There is a label sewn into the inside that reads \"Horace\"."));
 
             ItemList.Add(new IConsumable(ITEM_ID_HEALTH_POTION, "Health Potion", "Restores 10 Health.", 10));
         }

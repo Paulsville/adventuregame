@@ -31,11 +31,13 @@ namespace Engine
             spider.LootTable.Add(new LootItem(IItem.ItemID(103), 100, 1, 2));
 
             IMonster mushroomboss = new IMonster(MONSTER_ID_MUSHROOMBOSS, "Man Eating Mushroom", 20, 3, 4, 25, 0);
+            mushroomboss.LootTable.Add(new LootItem(IItem.ItemID(105), 100, 1, 1));
 
             MonsterList.Add(rat);
             MonsterList.Add(wolf);
             MonsterList.Add(snake);
             MonsterList.Add(spider);
+            MonsterList.Add(mushroomboss);
         }
     }
 }

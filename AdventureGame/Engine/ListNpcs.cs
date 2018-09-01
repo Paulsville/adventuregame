@@ -17,7 +17,7 @@ namespace Engine
             INpc alchemist = new INpc(NPC_ID_ALCHEMIST, "Alchemist Fizzlebrew")
             {
                 Greetings = "Hello, traveller! I haven't got any potions in stock at the moment.",
-                GiveQuests = { IQuest.QuestID(0), IQuest.QuestID(3), IQuest.QuestID(4) }
+                GiveQuests = { IQuest.QuestID(0), IQuest.QuestID(3), IQuest.QuestID(4), IQuest.QuestID(5) }
             };
 
             NpcList.Add(alchemist);

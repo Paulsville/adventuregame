@@ -71,6 +71,25 @@ namespace Engine
                 }
                 
             }
+            else if(loc.BossHere != null)
+            {
+                if(loc.SpawnedMonster != null)
+                {
+                    if(loc.SpawnedMonster.HpCur == 0)
+                    {
+                        monster = "There is a dead " + loc.SpawnedMonster.Name + " on the ground.";
+                    }
+                    else
+                    {
+                        monster = "The " + loc.SpawnedMonster.Name + " is attacking you! (" + loc.SpawnedMonster.HpCur + "/" + loc.BossHere.HpMax + " HP)";
+                    }
+                }
+                else
+                {
+                    monster = "You feel a little uneasy...";
+                }
+
+            }
             else
             {
                 monster = "There doesn't seem to be any monsters here.";

@@ -64,6 +64,7 @@ namespace AdventureMain
             _player.Weapon = (IWeapon)IItem.ItemID(0);
             _player.Inventory.Add(new InventoryItem(IItem.ItemID(201), 1));
             _player.Inventory.Add(new InventoryItem(IItem.ItemID(100), 5));
+            _player.Inventory.Add(new InventoryItem(IItem.ItemID(103), 10));
 
             //refresh labels
             UpdatePlayerDetails();
@@ -311,15 +312,22 @@ namespace AdventureMain
                 else
                 {
                     IQuest q = npc.GiveQuests.First();
-                    if (q.QuestPreReq != null)
+                    if(!_player.QuestLog.Contains(q))
                     {
-                        if (_player.QuestLog.Contains(q.QuestPreReq))
+                        if (q.QuestPreReq != null)
                         {
-                            int i = _player.QuestLog.IndexOf(q.QuestPreReq);
-                            if (_player.QuestLog[i].Completed == true)
+                            if (_player.QuestLog.Contains(q.QuestPreReq))
                             {
-                                _player.QuestLog.Add(q);
-                                infoBox.Text = "Quest Accepted: " + q.QuestName + "\n\n\"" + q.QuestDialogue + "\"";
+                                int i = _player.QuestLog.IndexOf(q.QuestPreReq);
+                                if (_player.QuestLog[i].Completed == true)
+                                {
+                                    _player.QuestLog.Add(q);
+                                    infoBox.Text = "Quest Accepted: " + q.QuestName + "\n\n\"" + q.QuestDialogue + "\"";
+                                }
+                                else
+                                {
+                                    infoBox.Text = "\"" + Utils.DialogueWriter(_player) + "\"";
+                                }
                             }
                             else
                             {
@@ -328,14 +336,11 @@ namespace AdventureMain
                         }
                         else
                         {
-                            infoBox.Text = "\"" + Utils.DialogueWriter(_player) + "\"";
+                            _player.QuestLog.Add(q);
+                            infoBox.Text = "Quest Accepted: " + q.QuestName + "\n\n\"" + q.QuestDialogue + "\"";
                         }
                     }
-                    else
-                    {
-                        _player.QuestLog.Add(q);
-                        infoBox.Text = "Quest Accepted: " + q.QuestName + "\n\n\"" + q.QuestDialogue + "\"";
-                    }
+                    
                 }
 
                 UpdateQuests();
@@ -362,9 +367,40 @@ namespace AdventureMain
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            if(_player.PlayerLocation.ItemHere != null)
+            if(!_player.Combat)
             {
-                AddInventoryItem(_player.PlayerLocation.ItemHere);
+                ILocation loc = _player.PlayerLocation;
+                if(loc.QuestReqToSearch != null && _player.QuestLog.Contains(loc.QuestReqToSearch))
+                {
+                    if (loc.ItemHere != null)
+                    {
+                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nYou rummage around and find a " + loc.ItemHere.ItmName + ".";
+                        if (loc.AfterSearchText != null)
+                        {
+                            infoBox.Text += "\n\n" + loc.AfterSearchText;
+                        }
+                        AddInventoryItem(loc.ItemHere, 1, false);
+                        loc.ItemHere = null;
+                        UpdateInventory();
+                    }
+                    else
+                    {
+                        infoBox.Text = Utils.LocInfoWriter(_player) + "\n\nYou don't find anything useful.";
+                    }
+
+                    if (_player.PlayerLocation.BossHere != null)
+                    {
+                        _player.PlayerLocation.SpawnedMonster = new Monster(_player.PlayerLocation.BossHere);
+                        Monster boss = _player.PlayerLocation.SpawnedMonster;
+                        _player.Combat = true;
+                        if (loc.AfterSearchText != null)
+                        {
+                            infoBox.Text += "\n\n" + loc.AfterSearchText;
+                        }
+                        infoBox.Text += "\n\nThe " + boss.Name + " attacks you! (" + boss.HpCur + "/" + _player.PlayerLocation.BossHere.HpMax + " HP)";
+                    }
+                }
+                
             }
         }
 
@@ -436,6 +472,11 @@ namespace AdventureMain
                             {
                                 infoBox.Text = "Quest Completed: " + q.QuestName + "\n\n\"" + q.RewardDialogue + "\"\n\nYou receive " + q.RewardXp
                                     + " experience.";
+                            }
+
+                            if(q.RewardItem != null)
+                            {
+                                AddInventoryItem(q.RewardItem);
                             }
                            
 
@@ -545,7 +586,7 @@ namespace AdventureMain
             _player.PlayerLocation = ListLocations.LocList.FirstOrDefault(l => l.PosX == _player.PosX && l.PosY == _player.PosY);
         }
 
-        private void AddInventoryItem(IItem item, int qty)
+        private void AddInventoryItem(IItem item, int qty, bool addMessageToInfobox = true)
         {
             if(_player.Inventory.FirstOrDefault(i => i.Itm == item) != null)
             {
@@ -555,7 +596,10 @@ namespace AdventureMain
             {
                 _player.Inventory.Add(new InventoryItem(item, qty));
             }
-            infoBox.Text += "\n\nYou receive item: " + item.ItmName + " x" + qty;
+            if(addMessageToInfobox)
+            {
+                infoBox.Text += "\n\nYou receive item: " + item.ItmName + " x" + qty;
+            }
             UpdateInventory();
             
         }
@@ -570,7 +614,7 @@ namespace AdventureMain
             {
                 _player.Inventory.Add(item);
             }
-            infoBox.Text += "\n\nYou receive item: " + item.Itm + " x" + item.ItmQty;
+            infoBox.Text += "\n\nYou receive item: " + item.Itm.ItmName + " x" + item.ItmQty;
             UpdateInventory();
 
         }

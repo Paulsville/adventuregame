@@ -23,15 +23,7 @@ namespace Engine
 
         public static IItem ItemID(int id)
         {
-            foreach (IItem item in ListItems.ItemList)
-            {
-                if (item.ID == id)
-                {
-                    return item;
-                }
-            }
-
-            return null;
+            return ListItems.ItemList.FirstOrDefault(i => i.ID == id);
         }
     }
 }

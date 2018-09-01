@@ -31,15 +31,7 @@ namespace Engine
 
         public static IMonster MonsterID(int id)
         {
-            foreach (IMonster monster in ListMonsters.MonsterList)
-            {
-                if (monster.ID == id)
-                {
-                    return monster;
-                }
-            }
-
-            return null;
+            return ListMonsters.MonsterList.FirstOrDefault(i => i.ID == id);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Engine
 
             IQuest MUSHROOM_PICKING = new IQuest(QUEST_ID_MUSHROOMS, "Fungus Hunting", 10, 0)
             {
-                ItemToComplete = new IQuestItem(IItem.ItemID(104), 5),
+                ItemToComplete = new IQuestItem(IItem.ItemID(104), 3),
                 QuestDesc = "Bring the alchemist 3 mushrooms.",
                 QuestDialogue = "Now, the last ingredient will be a particular mushroom that grows in the forests around here. I think 3 large ones will do." +
                 "Be careful though - last time I sent someone to find some they didn't come back...",
@@ -57,12 +57,13 @@ namespace Engine
                 RewardDialogue = "\"Horace\"...so he really wasn't just hallucinating when he said a mushroom chased him around. " +
                 "As promised, here's your gold and the potions. Thank you, adventurer!",
                 QuestPreReq = IQuest.QuestID(4),
-                RewardItem = new InventoryItem(IItem.ItemID(3), 5)
+                RewardItem = new InventoryItem(IItem.ItemID(201), 5)
             };
 
             QuestList.Add(RAT_TAILS);
             QuestList.Add(SPIDER_FANGS);
-
+            QuestList.Add(MUSHROOM_PICKING);
+            QuestList.Add(MUSHROOM_SLAYING);
         }
     }
 }
